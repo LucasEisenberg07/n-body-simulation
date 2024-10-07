@@ -5,14 +5,14 @@ public class NBodySimulation {
 
     ArrayList<Planet> planets;
     float G;
-    public NBodySimulation() {
+    public NBodySimulation(float G) {
         planets = new ArrayList<Planet>();
-        G = 1;
+        this.G = G;
     }
 
     // MODIFIES: this
-    // EFFECTS: finds the velocities of all planets and updates their position by one tick
-    public void updatePlanets() {
+    // EFFECTS: finds the velocities of all planets and updates their position by given number of ticks
+    public void tick(int num) {
         // stub
     }
 
@@ -31,9 +31,17 @@ public class NBodySimulation {
 
     // REQUIRES: 0 <= index <= length(planets)
     // EFFECTS: get a planet with given index in planets
-    public void getPlanet(int index) {
-        // stub
+    public Planet getPlanet(int index) {
+        Planet p = new Planet(0, 0, 0);
+        return p;
     }
 
+    public void setG(float G) {
+        this.G = G;
+    }
+
+    public float getG() {
+        return G;
+    }
 
 }

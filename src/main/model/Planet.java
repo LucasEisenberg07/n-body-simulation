@@ -68,19 +68,21 @@ public class Planet {
     }
 
     // MODIFIES: this
-    // REQUIRES: G > 0, ArrayList<Planet> planets does not contain planet
+    // REQUIRES: G != 0
     // EFFECTS: updates dxpos and dypos based on the positions of other planets
     public void updateVelocity(ArrayList<Planet> planets, float G) {
         double currentXVelocity = 0;
         double currentYVelocity = 0;
         for (Planet planet : planets) {
-            double dx = planet.getXPos() - this.xpos;
-            double dy = planet.getYPos() - this.ypos;
-            double distance = Math.sqrt((dx*dx) + (dy*dy));
-            double theta = Math.atan(dy/dx);
-            double gravity = (this.mass*planet.getMass()*G)/(distance*distance);
-            currentXVelocity += (gravity*dy/distance);
-            currentYVelocity += (gravity*dx/distance);
+            if (planet != this) {
+                double dx = planet.getXPos() - this.xpos;
+                double dy = planet.getYPos() - this.ypos;
+                double distance = Math.sqrt((dx*dx) + (dy*dy));
+                double theta = Math.atan(dy/dx);
+                double gravity = (this.mass*planet.getMass()*G)/(distance*distance);
+                currentXVelocity += (gravity*dy/distance);
+                currentYVelocity += (gravity*dx/distance);
+            }
         }
         this.dxpos = currentXVelocity;
         this.dypos = currentYVelocity;
