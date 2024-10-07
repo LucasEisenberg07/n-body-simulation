@@ -19,9 +19,9 @@ public class TestNBodySimulation {
     void runBefore() {
         G = 1;
         testSimulation = new NBodySimulation(1);
-        firstPlanet = new Planet(10, 0, 0);
-        secondPlanet = new Planet(100, 10, 0);
-        thirdPlanet = new Planet(100, 0, 10);
+        firstPlanet = new Planet(10, 0, 0, 0, 0);
+        secondPlanet = new Planet(100, 10, 0, 0, 0);
+        thirdPlanet = new Planet(100, 0, 10, 0, 0);
         planets = new ArrayList<Planet>();
         planets.add(firstPlanet);
         planets.add(secondPlanet);
@@ -32,12 +32,25 @@ public class TestNBodySimulation {
     }
 
     @Test 
-    void testConstructorAndAddPlanet() {
+    void testConstructor() {
         assertEquals(G, testSimulation.getG());
         assertEquals(3, testSimulation.numPlanets());
         assertEquals(firstPlanet, testSimulation.getPlanet(0));
         assertEquals(secondPlanet, testSimulation.getPlanet(1));
         assertEquals(thirdPlanet, testSimulation.getPlanet(2));
+    }
+
+    @Test 
+    void testAddPlanets() {
+        testSimulation.addPlanet(10, 100, 5);
+        testSimulation.addPlanetWithVelocity(10, 10, 5, 100, 10);
+
+        Planet normalPlanet = new Planet(10, 100, 5, 0, 0);
+        Planet speedyPlanet = new Planet(10, 10, 5, 0, 0);
+        speedyPlanet.setDXPos(100);
+        speedyPlanet.setDYPos(10);
+        assertEquals(normalPlanet, testSimulation.getPlanet(3));
+        assertEquals(speedyPlanet, testSimulation.getPlanet(4));
     }
 
     @Test

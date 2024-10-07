@@ -42,10 +42,12 @@ public class TextViewer {
         }
         for (int i = 0; i < simulation.numPlanets(); i++) {
             Planet planet = simulation.getPlanet(i);
-            System.out.println("Planet #" + i + " mass: " + 
+            System.out.println("Planet #" + i + ": mass: " + 
             String.valueOf(df.format(planet.getMass())) + ", xpos: " + 
             String.valueOf(df.format(planet.getXPos())) + ", ypos: " + 
-            String.valueOf(df.format(planet.getYPos())));
+            String.valueOf(df.format(planet.getYPos())) + ", x velocity: " + 
+            String.valueOf(df.format(planet.getDXPos())) + ", y velocity: " + 
+            String.valueOf(df.format(planet.getDYPos())));
         }
     }
 
@@ -62,6 +64,8 @@ public class TextViewer {
             changeG();
         } else if (command.equals("t")) {
             runTicks();
+        }else if (command.equals("awv")) {
+            addPlanetWithVelocity(); 
         } else {
             System.out.println("Error, command: \"" + command + "\" not recognized, please try again");
         }
@@ -71,6 +75,7 @@ public class TextViewer {
     public void runHelp() {
         System.out.println("Valid commands:");
         System.out.println("\"a\" add planet");
+        System.out.println("\"awv\" add planet with velocity");
         System.out.println("\"r\" remove planet");
         System.out.println("\"t\" run given number of ticks");
         System.out.println("\"g\" to change the gravitational constant");
@@ -101,6 +106,29 @@ public class TextViewer {
             }
         }
         simulation.addPlanet(mass, xpos, ypos);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a given planet with velocity
+    public void addPlanetWithVelocity() {
+        System.out.println("What is the mass of this new planet? Please input an integer.");
+        Integer mass = expectInteger(scanner.nextLine());
+        System.out.println("What is the xpos of this new planet? Please input a float.");
+        Float xpos = expectFloat(scanner.nextLine());
+        System.out.println("What is the ypos of this new planet? Please input a float.");
+        Float ypos = expectFloat(scanner.nextLine());
+        System.out.println("What is the x velocity of this new planet? Please input a float.");
+        Float dx = expectFloat(scanner.nextLine());
+        System.out.println("What is the y velocity of this new planet? Please input a float.");
+        Float dy = expectFloat(scanner.nextLine());
+        for (int i = 0; i < simulation.numPlanets(); i++) {
+            Planet planet = simulation.getPlanet(i);
+            if (planet.getXPos() == xpos && planet.getYPos() == ypos) {
+                System.out.println("Error, this planet would be at the same location as planet #" + i);
+                start();
+            }
+        }
+        simulation.addPlanetWithVelocity(mass, xpos, ypos, dx, dy);
     }
 
     // MODIFIES: this

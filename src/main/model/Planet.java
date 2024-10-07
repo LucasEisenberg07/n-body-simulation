@@ -12,11 +12,11 @@ public class Planet {
 
     // REQUIRES: mass > 0 && -width ≤ xpos ≤ width && -height ≤ ypos ≤ height
     // EFFECTS: creates a planet with given mass, xpos, and ypos
-    public Planet(float mass, float xpos, float ypos) {
+    public Planet(float mass, float xpos, float ypos, float dx, float dy) {
         this.xpos = xpos;
         this.ypos = ypos;
-        this.dxpos = 0;
-        this.dypos = 0;
+        this.dxpos = dx;
+        this.dypos = dy;
         this.mass = mass;
     }
 
@@ -71,8 +71,8 @@ public class Planet {
     // REQUIRES: G != 0
     // EFFECTS: updates dxpos and dypos based on the positions of other planets
     public void updateVelocity(ArrayList<Planet> planets, float G) {
-        double currentXVelocity = 0;
-        double currentYVelocity = 0;
+        double xAcceleration = 0;
+        double yAcceleration = 0;
         for (Planet planet : planets) {
             if (planet != this) {
                 double dx = planet.getXPos() - this.xpos;
@@ -80,12 +80,12 @@ public class Planet {
                 double distance = Math.sqrt((dx*dx) + (dy*dy));
                 double theta = Math.atan(dy/dx);
                 double gravity = (this.mass*planet.getMass()*G)/(distance*distance);
-                currentXVelocity += (gravity*dy/distance);
-                currentYVelocity += (gravity*dx/distance);
+                xAcceleration += (gravity*dy/distance)/this.mass;
+                yAcceleration += (gravity*dx/distance)/this.mass;
             }
         }
-        this.dxpos = currentXVelocity;
-        this.dypos = currentYVelocity;
+        this.dxpos += xAcceleration;
+        this.dypos += yAcceleration;
     }
     
     @Override

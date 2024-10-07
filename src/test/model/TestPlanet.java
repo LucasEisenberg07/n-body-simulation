@@ -17,9 +17,9 @@ public class TestPlanet {
     float G;
     @BeforeEach
     void runBefore() {
-        testPlanet = new Planet(10, 0, 0);
-        otherPlanet = new Planet(100, 10, 0);
-        anotherPlanet = new Planet(100, 0, 10);
+        testPlanet = new Planet(10, 0, 0, 0, 0);
+        otherPlanet = new Planet(100, 10, 0, 0, 0);
+        anotherPlanet = new Planet(100, 0, 10, 0, 0);
         G = 1;
         testPlanets = new ArrayList<Planet>();
         testPlanets.add(otherPlanet);
@@ -75,8 +75,8 @@ public class TestPlanet {
         testPlanet.updateVelocity(testPlanets, G);
         assertEquals((float) 0, testPlanet.getXPos());
         assertEquals((float) 0, testPlanet.getYPos());
-        assertEquals((float) 10, testPlanet.getDXPos());
-        assertEquals((float) 10, testPlanet.getDYPos());
+        assertEquals((float) 1, testPlanet.getDXPos());
+        assertEquals((float) 1, testPlanet.getDYPos());
     }
 
     @Test 
@@ -87,8 +87,8 @@ public class TestPlanet {
         otherPlanet.setYPos(100);
         double distance = Math.sqrt((100*100) + (100*100));
         double gravity = (1000)/(distance*distance);
-        double xvelocity = 10+gravity*1000/distance;
-        double yvelocity = gravity*1000/distance ;
+        double xvelocity = 2+gravity*1000/distance/10;
+        double yvelocity = (gravity*1000/distance)/10 + 1;
         testPlanet.updateVelocity(testPlanets, G);
         assertEquals((float) 0, testPlanet.getXPos());
         assertEquals((float) 0, testPlanet.getYPos());
@@ -98,8 +98,8 @@ public class TestPlanet {
 
     @Test 
     void testEqualsAndHashCode() {
-        Planet samePlanet = new Planet(10, 0, 0);
-        Planet differentPlanet = new Planet(10, (float) 0.1, 0);
+        Planet samePlanet = new Planet(10, 0, 0, 0, 0);
+        Planet differentPlanet = new Planet(10, (float) 0.1, 0, 0, 0);
         assertEquals(samePlanet, testPlanet);
         assertEquals(samePlanet.hashCode(), testPlanet.hashCode());
         assertNotEquals(differentPlanet.hashCode(), testPlanet.hashCode());

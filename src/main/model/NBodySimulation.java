@@ -28,7 +28,14 @@ public class NBodySimulation {
     // MODIFIES: this
     // EFFECTS: adds a new planet with given mass, xpos, and ypos to planets
     public void addPlanet(int mass, float xpos, float ypos) {
-        Planet p = new Planet(mass, xpos, ypos);
+        Planet p = new Planet(mass, xpos, ypos, 0, 0);
+        planets.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, and dypos to planets
+    public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos) {
+        Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
         planets.add(p);
     }
 
