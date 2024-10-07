@@ -1,6 +1,5 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -14,13 +13,14 @@ public class TestPlanet {
     Planet otherPlanet;
     Planet anotherPlanet;
     ArrayList<Planet> testPlanets;
-    float G;
+    float gravitationalConstant;
+
     @BeforeEach
     void runBefore() {
         testPlanet = new Planet(10, 0, 0, 0, 0);
         otherPlanet = new Planet(100, 10, 0, 0, 0);
         anotherPlanet = new Planet(100, 0, 10, 0, 0);
-        G = 1;
+        gravitationalConstant = 1;
         testPlanets = new ArrayList<Planet>();
         testPlanets.add(otherPlanet);
         testPlanets.add(anotherPlanet);
@@ -72,7 +72,7 @@ public class TestPlanet {
     
     @Test 
     void testUpdateVelocity() {
-        testPlanet.updateVelocity(testPlanets, G);
+        testPlanet.updateVelocity(testPlanets, gravitationalConstant);
         assertEquals((float) 0, testPlanet.getXPos());
         assertEquals((float) 0, testPlanet.getYPos());
         assertEquals((float) 1, testPlanet.getDXPos());
@@ -81,15 +81,15 @@ public class TestPlanet {
 
     @Test 
     void testUpdateVelocityMultipleTimes() {
-        testPlanet.updateVelocity(testPlanets, G);
+        testPlanet.updateVelocity(testPlanets, gravitationalConstant);
         otherPlanet.setMass(1000);
         otherPlanet.setXPos(100);
         otherPlanet.setYPos(100);
-        double distance = Math.sqrt((100*100) + (100*100));
-        double gravity = (1000)/(distance*distance);
-        double xvelocity = 1 + gravity*1000/distance/10;
-        double yvelocity = (gravity*1000/distance)/10 + 2;
-        testPlanet.updateVelocity(testPlanets, G);
+        double distance = Math.sqrt((100 * 100) + (100 * 100));
+        double gravity = (1000) / (distance * distance);
+        double xvelocity = 1 + gravity * 1000 / distance / 10;
+        double yvelocity = (gravity * 1000 / distance) / 10 + 2;
+        testPlanet.updateVelocity(testPlanets, gravitationalConstant);
         assertEquals((float) 0, testPlanet.getXPos());
         assertEquals((float) 0, testPlanet.getYPos());
         assertEquals(xvelocity, testPlanet.getDXPos());

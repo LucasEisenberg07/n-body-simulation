@@ -4,19 +4,18 @@ package ui;
 import java.io.Console;
 import java.io.Reader;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import model.*;
 
-// Creates a new TextViewer that can take in the data from an NBodySimulation, and inputs from the user, and outputs text
-
+// Creates a new TextViewer that can take in the data from an NBodySimulation, and inputs from the user, and prints text
 public class TextViewer {
     Console console = System.console();
     Reader consoleReader = console.reader();
     NBodySimulation simulation;
     DecimalFormat df;
     Scanner scanner;
+
     public TextViewer(NBodySimulation simulation) {
         this.simulation = simulation;
         df = new DecimalFormat("#.###");
@@ -42,12 +41,13 @@ public class TextViewer {
         }
         for (int i = 0; i < simulation.numPlanets(); i++) {
             Planet planet = simulation.getPlanet(i);
-            System.out.println("Planet #" + i + ": mass: " + 
-            String.valueOf(df.format(planet.getMass())) + ", xpos: " + 
-            String.valueOf(df.format(planet.getXPos())) + ", ypos: " + 
-            String.valueOf(df.format(planet.getYPos())) + ", x velocity: " + 
-            String.valueOf(df.format(planet.getDXPos())) + ", y velocity: " + 
-            String.valueOf(df.format(planet.getDYPos())));
+            System.out.println("Planet #" + i 
+                                            + ": mass: "
+                                            + String.valueOf(df.format(planet.getMass())) + ", xpos: " 
+                                            + String.valueOf(df.format(planet.getXPos())) + ", ypos: " 
+                                            + String.valueOf(df.format(planet.getYPos())) + ", x velocity: " 
+                                            + String.valueOf(df.format(planet.getDXPos())) + ", y velocity: " 
+                                            + String.valueOf(df.format(planet.getDYPos())));
         }
     }
 
@@ -64,7 +64,7 @@ public class TextViewer {
             changeG();
         } else if (command.equals("t")) {
             runTicks();
-        }else if (command.equals("awv")) {
+        } else if (command.equals("awv")) {
             addPlanetWithVelocity(); 
         } else if (command.equals("vt")) {
             viewRunTicks(); 
@@ -102,12 +102,13 @@ public class TextViewer {
             System.out.println("Tick number: " + (i + 1));
             for (int p = 0; p < simulation.numPlanets(); p++) {
                 Planet planet = simulation.getPlanet(p);
-                System.out.println("Planet #" + p + ": mass: " + 
-                String.valueOf(df.format(planet.getMass())) + ", xpos: " + 
-                String.valueOf(df.format(planet.getXPos())) + ", ypos: " + 
-                String.valueOf(df.format(planet.getYPos())) + ", x velocity: " + 
-                String.valueOf(df.format(planet.getDXPos())) + ", y velocity: " + 
-                String.valueOf(df.format(planet.getDYPos())));
+                System.out.println("Planet #" + p 
+                                                + ": mass: " 
+                                                + String.valueOf(df.format(planet.getMass())) + ", xpos: " 
+                                                + String.valueOf(df.format(planet.getXPos())) + ", ypos: "
+                                                + String.valueOf(df.format(planet.getYPos())) + ", x velocity: "
+                                                + String.valueOf(df.format(planet.getDXPos())) + ", y velocity: "
+                                                + String.valueOf(df.format(planet.getDYPos())));
             }
         }
     }
@@ -169,9 +170,10 @@ public class TextViewer {
     // MODIFIES: this
     // EFFECTS: changes G to given value
     public void changeG() {
-        System.out.println("Current G: " + df.format(simulation.getG()) + " what do you want the new G to be?");
+        System.out.println("Current G: " + df.format(simulation.getGravitationalConstant()) 
+                                            + " what do you want the new G to be?");
         Float g = expectFloat(scanner.nextLine());
-        simulation.setG(g);
+        simulation.setGravitationalConstant(g);
     }
 
     // EFFECTS: checks if given string is an integer
@@ -179,8 +181,7 @@ public class TextViewer {
         try {
             Integer val = Integer.parseInt(str);
             return val;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not an integer");
             start();
             Integer val = 1;
@@ -188,12 +189,12 @@ public class TextViewer {
         }
     }
     // EFFECTS: checks if given string is a float
+
     public Float expectFloat(String str) {
         try {
             Float val = Float.parseFloat(str);
             return val;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not a float");
             start();
             Float val = (float) 1;
@@ -210,8 +211,7 @@ public class TextViewer {
                 start();
             }
             return val;
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not a postive integer");
             start();
             Integer val = 1;

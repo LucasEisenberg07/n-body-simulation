@@ -1,15 +1,17 @@
 package model;
+
 import java.util.ArrayList;
 
-// Creates a new NBodySimulation that can create a list of planets, run ticks on the planets, and manipulate the data stored in the planets
+// Creates a new NBodySimulation that can create a list of planets, run ticks, and change the data stored in the planets
 
 public class NBodySimulation {
 
     ArrayList<Planet> planets;
-    float G;
-    public NBodySimulation(float G) {
+    float gravitationalConstant;
+
+    public NBodySimulation(float gravitationalConstant) {
         planets = new ArrayList<Planet>();
-        this.G = G;
+        this.gravitationalConstant = gravitationalConstant;
     }
 
     // MODIFIES: this
@@ -17,7 +19,7 @@ public class NBodySimulation {
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
             for (Planet planet : planets) {
-                planet.updateVelocity(planets, G);
+                planet.updateVelocity(planets, gravitationalConstant);
             }
             for (Planet planet : planets) {
                 planet.updatePos();
@@ -64,12 +66,12 @@ public class NBodySimulation {
         return planets.size();
     }
 
-    public void setG(float G) {
-        this.G = G;
+    public void setGravitationalConstant(float gravitationalConstant) {
+        this.gravitationalConstant = gravitationalConstant;
     }
 
-    public float getG() {
-        return G;
+    public float getGravitationalConstant() {
+        return gravitationalConstant;
     }
 
 }

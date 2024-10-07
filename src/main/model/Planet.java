@@ -1,4 +1,5 @@
 package model;
+
 import java.util.ArrayList;
 
 // Creates a new planet that can store data about its position and velocity, and can update its position and velocity
@@ -70,22 +71,21 @@ public class Planet {
     // MODIFIES: this
     // REQUIRES: G != 0
     // EFFECTS: updates dxpos and dypos based on the positions of other planets
-    public void updateVelocity(ArrayList<Planet> planets, float G) {
-        double xAcceleration = 0;
-        double yAcceleration = 0;
+    public void updateVelocity(ArrayList<Planet> planets, float g) {
+        double xacceleration = 0;
+        double yacceleration = 0;
         for (Planet planet : planets) {
             if (planet != this) {
                 double dx = planet.getXPos() - this.xpos;
                 double dy = planet.getYPos() - this.ypos;
-                double distance = Math.sqrt((dx*dx) + (dy*dy));
-                double theta = Math.atan(dy/dx);
-                double gravity = (this.mass*planet.getMass()*G)/(distance*distance);
-                xAcceleration += (gravity*dx/distance)/this.mass;
-                yAcceleration += (gravity*dy/distance)/this.mass;
+                double distance = Math.sqrt((dx * dx) + (dy * dy));
+                double gravity = (this.mass * planet.getMass() * g) / (distance * distance);
+                xacceleration += (gravity * dx / distance) / this.mass;
+                yacceleration += (gravity * dy / distance) / this.mass;
             }
         }
-        this.dxpos += xAcceleration;
-        this.dypos += yAcceleration;
+        this.dxpos += xacceleration;
+        this.dypos += yacceleration;
     }
     
     @Override
@@ -103,19 +103,25 @@ public class Planet {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         Planet other = (Planet) obj;
-        if (Float.floatToIntBits(mass) != Float.floatToIntBits(other.mass))
+        if (Float.floatToIntBits(mass) != Float.floatToIntBits(other.mass)) {
             return false;
-        if (Double.doubleToLongBits(xpos) != Double.doubleToLongBits(other.xpos))
+        }
+        if (Double.doubleToLongBits(xpos) != Double.doubleToLongBits(other.xpos)) {
             return false;
-        if (Double.doubleToLongBits(ypos) != Double.doubleToLongBits(other.ypos))
+        }
+        if (Double.doubleToLongBits(ypos) != Double.doubleToLongBits(other.ypos)) {
             return false;
+        }
         return true;
     }
 }

@@ -1,12 +1,12 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 public class TestNBodySimulation {
     Planet firstPlanet;
     Planet secondPlanet;
@@ -14,10 +14,11 @@ public class TestNBodySimulation {
     NBodySimulation testNBodySimulation;
     NBodySimulation testSimulation;
     ArrayList<Planet> planets;
-    float G;
+    float gravitationalConstant;
+
     @BeforeEach
     void runBefore() {
-        G = 1;
+        gravitationalConstant = 1;
         testSimulation = new NBodySimulation(1);
         firstPlanet = new Planet(10, 0, 0, 0, 0);
         secondPlanet = new Planet(100, 10, 0, 0, 0);
@@ -33,7 +34,7 @@ public class TestNBodySimulation {
 
     @Test 
     void testConstructor() {
-        assertEquals(G, testSimulation.getG());
+        assertEquals(gravitationalConstant, testSimulation.getGravitationalConstant());
         assertEquals(3, testSimulation.numPlanets());
         assertEquals(firstPlanet, testSimulation.getPlanet(0));
         assertEquals(secondPlanet, testSimulation.getPlanet(1));
@@ -56,9 +57,9 @@ public class TestNBodySimulation {
     @Test
     void testTickOnce() {
         testSimulation.tick(1);
-        firstPlanet.updateVelocity(planets, G);
-        secondPlanet.updateVelocity(planets, G);
-        thirdPlanet.updateVelocity(planets, G);
+        firstPlanet.updateVelocity(planets, gravitationalConstant);
+        secondPlanet.updateVelocity(planets, gravitationalConstant);
+        thirdPlanet.updateVelocity(planets, gravitationalConstant);
         firstPlanet.updatePos();
         secondPlanet.updatePos();
         thirdPlanet.updatePos();
@@ -70,21 +71,21 @@ public class TestNBodySimulation {
     @Test
     void testTickMultipleTimes() {
         testSimulation.tick(3);
-        firstPlanet.updateVelocity(planets, G);
-        secondPlanet.updateVelocity(planets, G);
-        thirdPlanet.updateVelocity(planets, G);
+        firstPlanet.updateVelocity(planets, gravitationalConstant);
+        secondPlanet.updateVelocity(planets, gravitationalConstant);
+        thirdPlanet.updateVelocity(planets, gravitationalConstant);
         firstPlanet.updatePos();
         secondPlanet.updatePos();
         thirdPlanet.updatePos();
-        firstPlanet.updateVelocity(planets, G);
-        secondPlanet.updateVelocity(planets, G);
-        thirdPlanet.updateVelocity(planets, G);
+        firstPlanet.updateVelocity(planets, gravitationalConstant);
+        secondPlanet.updateVelocity(planets, gravitationalConstant);
+        thirdPlanet.updateVelocity(planets, gravitationalConstant);
         firstPlanet.updatePos();
         secondPlanet.updatePos();
         thirdPlanet.updatePos();
-        firstPlanet.updateVelocity(planets, G);
-        secondPlanet.updateVelocity(planets, G);
-        thirdPlanet.updateVelocity(planets, G);
+        firstPlanet.updateVelocity(planets, gravitationalConstant);
+        secondPlanet.updateVelocity(planets, gravitationalConstant);
+        thirdPlanet.updateVelocity(planets, gravitationalConstant);
         firstPlanet.updatePos();
         secondPlanet.updatePos();
         thirdPlanet.updatePos();
