@@ -87,8 +87,8 @@ public class TestPlanet {
         otherPlanet.setYPos(100);
         double distance = Math.sqrt((100*100) + (100*100));
         double gravity = (1000)/(distance*distance);
-        double xvelocity = 2+gravity*1000/distance/10;
-        double yvelocity = (gravity*1000/distance)/10 + 1;
+        double xvelocity = 1 + gravity*1000/distance/10;
+        double yvelocity = (gravity*1000/distance)/10 + 2;
         testPlanet.updateVelocity(testPlanets, G);
         assertEquals((float) 0, testPlanet.getXPos());
         assertEquals((float) 0, testPlanet.getYPos());

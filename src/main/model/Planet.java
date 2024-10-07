@@ -80,8 +80,8 @@ public class Planet {
                 double distance = Math.sqrt((dx*dx) + (dy*dy));
                 double theta = Math.atan(dy/dx);
                 double gravity = (this.mass*planet.getMass()*G)/(distance*distance);
-                xAcceleration += (gravity*dy/distance)/this.mass;
-                yAcceleration += (gravity*dx/distance)/this.mass;
+                xAcceleration += (gravity*dx/distance)/this.mass;
+                yAcceleration += (gravity*dy/distance)/this.mass;
             }
         }
         this.dxpos += xAcceleration;

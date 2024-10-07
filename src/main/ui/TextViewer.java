@@ -66,6 +66,8 @@ public class TextViewer {
             runTicks();
         }else if (command.equals("awv")) {
             addPlanetWithVelocity(); 
+        } else if (command.equals("vt")) {
+            viewRunTicks(); 
         } else {
             System.out.println("Error, command: \"" + command + "\" not recognized, please try again");
         }
@@ -78,6 +80,7 @@ public class TextViewer {
         System.out.println("\"awv\" add planet with velocity");
         System.out.println("\"r\" remove planet");
         System.out.println("\"t\" run given number of ticks");
+        System.out.println("\"vt\" run given number of ticks, and view the planets each tick");
         System.out.println("\"g\" to change the gravitational constant");
     }
 
@@ -87,6 +90,26 @@ public class TextViewer {
         System.out.println("How many ticks do you want to run?");
         Integer ticks = expectPositiveInteger(scanner.nextLine());
         simulation.tick(ticks);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: runs a given number of ticks of the simulation, and prints out the planets each tick
+    public void viewRunTicks() {
+        System.out.println("How many ticks do you want to run and view?");
+        Integer ticks = expectPositiveInteger(scanner.nextLine());
+        for (int i = 0; i < ticks; i++) {
+            simulation.tick(1);
+            System.out.println("Tick number: " + (i + 1));
+            for (int p = 0; p < simulation.numPlanets(); p++) {
+                Planet planet = simulation.getPlanet(p);
+                System.out.println("Planet #" + p + ": mass: " + 
+                String.valueOf(df.format(planet.getMass())) + ", xpos: " + 
+                String.valueOf(df.format(planet.getXPos())) + ", ypos: " + 
+                String.valueOf(df.format(planet.getYPos())) + ", x velocity: " + 
+                String.valueOf(df.format(planet.getDXPos())) + ", y velocity: " + 
+                String.valueOf(df.format(planet.getDYPos())));
+            }
+        }
     }
 
     // MODIFIES: this
