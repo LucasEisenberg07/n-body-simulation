@@ -7,8 +7,6 @@ public class Planet {
     double ypos;
     double dxpos;
     double dypos;
-    int width = 500;
-    int height = 500;
 
     // REQUIRES: mass > 0 && -width ≤ xpos ≤ width && -height ≤ ypos ≤ height
     // EFFECTS: creates a planet with given mass, xpos, and ypos
@@ -88,4 +86,34 @@ public class Planet {
         this.dypos = currentYVelocity;
     }
     
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Float.floatToIntBits(mass);
+        long temp;
+        temp = Double.doubleToLongBits(xpos);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(ypos);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Planet other = (Planet) obj;
+        if (Float.floatToIntBits(mass) != Float.floatToIntBits(other.mass))
+            return false;
+        if (Double.doubleToLongBits(xpos) != Double.doubleToLongBits(other.xpos))
+            return false;
+        if (Double.doubleToLongBits(ypos) != Double.doubleToLongBits(other.ypos))
+            return false;
+        return true;
+    }
 }

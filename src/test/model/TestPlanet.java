@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.ArrayList;
 
@@ -93,5 +94,15 @@ public class TestPlanet {
         assertEquals((float) 0, testPlanet.getYPos());
         assertEquals(xvelocity, testPlanet.getDXPos());
         assertEquals(yvelocity, testPlanet.getDYPos());
+    }
+
+    @Test 
+    void testEqualsAndHashCode() {
+        Planet samePlanet = new Planet(10, 0, 0);
+        Planet differentPlanet = new Planet(10, (float) 0.1, 0);
+        assertEquals(samePlanet, testPlanet);
+        assertEquals(samePlanet.hashCode(), testPlanet.hashCode());
+        assertNotEquals(differentPlanet.hashCode(), testPlanet.hashCode());
+        
     }
 }
