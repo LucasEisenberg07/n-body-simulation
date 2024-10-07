@@ -34,6 +34,7 @@ public class TestNBodySimulation {
     @Test 
     void testConstructorAndAddPlanet() {
         assertEquals(G, testSimulation.getG());
+        assertEquals(3, testSimulation.numPlanets());
         assertEquals(firstPlanet, testSimulation.getPlanet(0));
         assertEquals(secondPlanet, testSimulation.getPlanet(1));
         assertEquals(thirdPlanet, testSimulation.getPlanet(2));

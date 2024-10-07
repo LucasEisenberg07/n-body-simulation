@@ -1,6 +1,8 @@
 package model;
 import java.util.ArrayList;
 
+// Creates a new planet that can store data about its position and velocity, and can update its position and velocity
+
 public class Planet {
     float mass;
     double xpos;

@@ -7,7 +7,7 @@
 - This project is of interest to me because I am interested in physics and astronomy, and this is a perfect combonation of those two.
 
 ## User stories
-- I wish to be able to add planets of different masses to NBodySimulation
+- I wish to be able to add and remove planets of different masses to NBodySimulation
 - I wish to be able to view the planets I have added to NBodySimulation
 - I wish to be able to change and set G, the gravitational constant
-- I wish to be able to change the mass and position of added planets
+- I wish to be able to run ticks and view the changing position of the planets

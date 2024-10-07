@@ -1,21 +1,14 @@
 package ui;
 
-
+import model.NBodySimulation;
+import model.Planet;
+import ui.TextViewer;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        int a = 1;
-        int b = 2;
-        
-        do {
-            if (a < 3) {
-                a += b;
-            } else {
-                a += 2 * b;
-            }
-            b++;
-        
-        } while (b < 5);
-        System.out.println(a);
+    public static void main(String[] args) {
+        int initialG = 1;
+        NBodySimulation simulation = new NBodySimulation(initialG);
+        TextViewer viewer = new TextViewer(simulation);
+        viewer.start(); 
     }
 }

@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 
+// Creates a new NBodySimulation that can create a list of planets, run ticks on the planets, and manipulate the data stored in the planets
 
 public class NBodySimulation {
 
@@ -31,7 +32,7 @@ public class NBodySimulation {
         planets.add(p);
     }
 
-    // REQUIRES: 0 <= index <= length(planets)
+    // REQUIRES: 0 <= index <= planets.size()
     // MODIFIES: this
     // EFFECTS: remove a planet with given index in planets
     public void removePlanet(int index) {
@@ -45,10 +46,15 @@ public class NBodySimulation {
         planets = newPlanets;
     }
 
-    // REQUIRES: 0 <= index <= length(planets)
+    // REQUIRES: 0 <= index <= planets.size()
     // EFFECTS: get a planet with given index in planets
     public Planet getPlanet(int index) {
         return planets.get(index);
+    }
+
+    // EFFECTS: returns the number of planets in planets
+    public int numPlanets() {
+        return planets.size();
     }
 
     public void setG(float G) {
