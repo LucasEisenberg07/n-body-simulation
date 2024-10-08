@@ -26,11 +26,15 @@ public class TextViewer {
     // EFFECTS: starts and runs the simulation
     public void start() {
         while (true) {
+            try {
             scanner = new Scanner(consoleReader);
             printPlanets();
             System.out.println("Enter command: (\"h\" for help) ");
             String command = scanner.nextLine();
             runCommand(command);
+            } catch(Exception e) {
+
+            }
         }
     }
 
@@ -126,7 +130,7 @@ public class TextViewer {
             Planet planet = simulation.getPlanet(i);
             if (planet.getXPos() == xpos && planet.getYPos() == ypos) {
                 System.out.println("Error, this planet would be at the same location as planet #" + i);
-                start();
+                throw new RuntimeException(":-()");
             }
         }
         simulation.addPlanet(mass, xpos, ypos);
@@ -149,7 +153,7 @@ public class TextViewer {
             Planet planet = simulation.getPlanet(i);
             if (planet.getXPos() == xpos && planet.getYPos() == ypos) {
                 System.out.println("Error, this planet would be at the same location as planet #" + i);
-                start();
+                throw new RuntimeException(":-()");
             }
         }
         simulation.addPlanetWithVelocity(mass, xpos, ypos, dx, dy);
@@ -162,7 +166,7 @@ public class TextViewer {
         Integer index = expectPositiveInteger(scanner.nextLine());
         if (index > simulation.numPlanets()) {
             System.out.println("Error, " + index + " is out of range");
-            start();
+            throw new RuntimeException(":-()");
         }
         simulation.removePlanet(index);
     }
@@ -183,9 +187,7 @@ public class TextViewer {
             return val;
         } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not an integer");
-            start();
-            Integer val = 1;
-            return val;
+            throw e;
         }
     }
     // EFFECTS: checks if given string is a float
@@ -196,9 +198,7 @@ public class TextViewer {
             return val;
         } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not a float");
-            start();
-            Float val = (float) 1;
-            return val;
+            throw e;
         }
     }
 
@@ -208,14 +208,12 @@ public class TextViewer {
             Integer val = Integer.parseInt(str);
             if (val < 0) {
                 System.out.println("Error, inputted string is not a postive integer");
-                start();
+                throw new RuntimeException(":-()");
             }
             return val;
         } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not a postive integer");
-            start();
-            Integer val = 1;
-            return val;
+            throw e;
         }
     }
 } 
