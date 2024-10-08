@@ -27,13 +27,13 @@ public class TextViewer {
     public void start() {
         while (true) {
             try {
-            scanner = new Scanner(consoleReader);
-            printPlanets();
-            System.out.println("Enter command: (\"h\" for help) ");
-            String command = scanner.nextLine();
-            runCommand(command);
-            } catch(Exception e) {
-
+                scanner = new Scanner(consoleReader);
+                printPlanets();
+                System.out.println("Enter command: (\"h\" for help) ");
+                String command = scanner.nextLine();
+                runCommand(command);
+            } catch (Exception e) {
+                System.out.print("");
             }
         }
     }
