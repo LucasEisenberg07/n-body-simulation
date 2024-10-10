@@ -96,6 +96,8 @@ public class TestNBodySimulation {
 
     @Test
     void testGetAndRemovePlanets() {
+        testSimulation.setGravitationalConstant(5);
+        assertEquals(testSimulation.getGravitationalConstant(), 5);
         Planet p = testSimulation.getPlanet(0);
         assertEquals(firstPlanet, p);
         testSimulation.removePlanet(0);

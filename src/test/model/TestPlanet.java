@@ -1,7 +1,9 @@
 package model;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -99,8 +101,17 @@ public class TestPlanet {
     @Test 
     void testEqualsAndHashCode() {
         Planet samePlanet = new Planet(10, 0, 0, 0, 0);
-        Planet differentPlanet = new Planet(10, (float) 0.1, 0, 0, 0);
-        assertEquals(samePlanet, testPlanet);
+        Planet almostSamePlanet = new Planet(10, 0, 1, 0, 0);
+        Planet differentPlanet = new Planet(10, 1, 0, 0, 0);
+        Planet heavyPlanet = new Planet(100, 1, 0, 0, 0);
+        Planet notAPlanet = null;
+        NBodySimulation notEvenCloseToBeingAPlanet = new NBodySimulation(gravitationalConstant);
+        assertTrue(!samePlanet.equals(differentPlanet));
+        assertTrue(!samePlanet.equals(almostSamePlanet));
+        assertTrue(!samePlanet.equals(notAPlanet));
+        assertTrue(!samePlanet.equals(notEvenCloseToBeingAPlanet));
+        assertTrue(!samePlanet.equals(heavyPlanet));
+        assertTrue(samePlanet.equals(samePlanet));
         assertEquals(samePlanet.hashCode(), testPlanet.hashCode());
         assertNotEquals(differentPlanet.hashCode(), testPlanet.hashCode());
         
