@@ -98,6 +98,7 @@ public class TestPlanet {
         assertEquals(yvelocity, testPlanet.getDYPos());
     }
 
+    @SuppressWarnings("unlikely-arg-type")
     @Test 
     void testEqualsAndHashCode() {
         Planet samePlanet = new Planet(10, 0, 0, 0, 0);
@@ -114,6 +115,5 @@ public class TestPlanet {
         assertTrue(samePlanet.equals(samePlanet));
         assertEquals(samePlanet.hashCode(), testPlanet.hashCode());
         assertNotEquals(differentPlanet.hashCode(), testPlanet.hashCode());
-        
     }
 }
