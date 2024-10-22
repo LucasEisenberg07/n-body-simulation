@@ -19,5 +19,5 @@
 - I wish to be able to type "h" to view a list of commands that I can use
 
 ## User stories phase 2
-- I wish to be able to save the current planets in NBodySimulation to a file
-- I wish to be able to load a list of planets from a file
+- I wish to be able to save the current planets and gravitational constant in NBodySimulation to a file
+- I wish to be able to load a list of planets and gravitational constant from a file
