@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 // Creates a new planet that can store data about its position and velocity, and can update its position and velocity
 // Citation: some code taken from JsonSerializationDemo 
-
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class Planet {
     float mass;
     double xpos;

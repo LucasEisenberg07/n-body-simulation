@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 // Creates a new NBodySimulation that can create a list of planets, run ticks, and change the data stored in the planets
 // Citation: some code taken from JsonSerializationDemo 
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class NBodySimulation {
 
     ArrayList<Planet> planets;
