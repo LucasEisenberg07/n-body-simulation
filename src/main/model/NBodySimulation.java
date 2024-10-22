@@ -2,8 +2,11 @@ package model;
 
 import java.util.ArrayList;
 
-// Creates a new NBodySimulation that can create a list of planets, run ticks, and change the data stored in the planets
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+// Creates a new NBodySimulation that can create a list of planets, run ticks, and change the data stored in the planets
+// Citation: some code taken from JsonSerializationDemo 
 public class NBodySimulation {
 
     ArrayList<Planet> planets;
@@ -64,6 +67,25 @@ public class NBodySimulation {
     // EFFECTS: returns the number of planets in planets
     public int numPlanets() {
         return planets.size();
+    }
+
+    // EFFECTS: converts this into Json
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("gravitationalConstant", gravitationalConstant);
+        json.put("planets", planetsToJson());
+        return json;
+    }
+
+    // EFFECTS: converts planets into Json
+    private JSONArray planetsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Planet p : planets) {
+            jsonArray.put(p.toJson());
+        }
+
+        return jsonArray;
     }
 
     public void setGravitationalConstant(float gravitationalConstant) {

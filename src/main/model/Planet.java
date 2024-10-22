@@ -2,7 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 // Creates a new planet that can store data about its position and velocity, and can update its position and velocity
+// Citation: some code taken from JsonSerializationDemo 
 
 public class Planet {
     float mass;
@@ -86,6 +89,17 @@ public class Planet {
         }
         this.dxpos += xacceleration;
         this.dypos += yacceleration;
+    }
+
+    //EFFECTS: converts this into Json
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("mass", mass);
+        json.put("xpos", xpos);
+        json.put("ypos", ypos);
+        json.put("dxpos", dxpos);
+        json.put("dypos", dypos);
+        return json;
     }
     
     @Override
