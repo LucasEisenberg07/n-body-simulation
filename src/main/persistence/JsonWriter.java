@@ -1,4 +1,5 @@
 package persistence;
+
 import model.*;
 import org.json.JSONObject;
 
@@ -27,8 +28,8 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of workroom to file
-    public void write(NBodySimulation NBS) {
-        JSONObject json = NBS.toJson();
+    public void write(NBodySimulation simulation) {
+        JSONObject json = simulation.toJson();
         saveToFile(json.toString(TAB));
     }
 

@@ -42,29 +42,29 @@ public class JsonReader {
     // EFFECTS: parses NBodySimulation from JSON object and returns it
     private NBodySimulation parseNBodySimulation(JSONObject jsonObject) {
         Float gravitationalConstant = jsonObject.getFloat("gravitationalConstant");
-        NBodySimulation NBS = new NBodySimulation(gravitationalConstant);
-        addPlanets(NBS, jsonObject);
-        return NBS;
+        NBodySimulation simulation = new NBodySimulation(gravitationalConstant);
+        addPlanets(simulation, jsonObject);
+        return simulation;
     }
 
     // MODIFIES: NBodySimulation
     // EFFECTS: parses planets from JSON object and adds them to NBodySimulation
-    private void addPlanets(NBodySimulation NBS, JSONObject jsonObject) {
+    private void addPlanets(NBodySimulation simulation, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("planets");
         for (Object json : jsonArray) {
             JSONObject nextPlanet = (JSONObject) json;
-            addPlanet(NBS, nextPlanet);
+            addPlanet(simulation, nextPlanet);
         }
     }
 
     // MODIFIES: NBodySimulation
     // EFFECTS: parses planet from JSON object and adds it to NBodySimulation
-    private void addPlanet(NBodySimulation NBS, JSONObject jsonObject) {
+    private void addPlanet(NBodySimulation simulation, JSONObject jsonObject) {
         Float xpos = jsonObject.getFloat("xpos");
         Float ypos = jsonObject.getFloat("ypos");
         Float dxpos = jsonObject.getFloat("dxpos");
         Float dypos = jsonObject.getFloat("dypos");
         int mass = jsonObject.getInt("mass");
-        NBS.addPlanetWithVelocity(mass, xpos, ypos, dxpos, dypos);
+        simulation.addPlanetWithVelocity(mass, xpos, ypos, dxpos, dypos);
     }
 }

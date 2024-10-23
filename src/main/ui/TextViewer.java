@@ -77,7 +77,7 @@ public class TextViewer {
             saveNBS();
         } else if (command.equals("l")) {
             loadNBS();
-        } else if (command.equals("r")){
+        } else if (command.equals("r")) {
             removePlanet();
         } else if (command.equals("g")) {
             changeG();

@@ -7,34 +7,33 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 // Citation: some code taken from JsonSerializationDemo 
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-class JsonReaderTest{
+class JsonReaderTest {
     @BeforeEach 
     void setUp() {
-        NBodySimulation NBS = new NBodySimulation(1);
+        NBodySimulation simulation = new NBodySimulation(1);
         JsonWriter writer = new JsonWriter("./data/testNBodySimulationNoPlanets.json");
         try {
             writer.open();
         } catch (FileNotFoundException e) {
             fail("File testNBodySimulationNoPlanets not created");
         }
-        writer.write(NBS);
+        writer.write(simulation);
         writer.close();
-        NBS = new NBodySimulation(1);
-        NBS.addPlanet(100,0,0);
-        NBS.addPlanetWithVelocity(10,10,0,0,5);
+        simulation = new NBodySimulation(1);
+        simulation.addPlanet(100,0,0);
+        simulation.addPlanetWithVelocity(10,10,0,0,5);
         writer = new JsonWriter("./data/testWriterMultiplePlanets.json");
         try {
             writer.open();
         } catch (FileNotFoundException e) {
             fail("File testWriterMultiplePlanets not created");
         }
-        writer.write(NBS);
+        writer.write(simulation);
         writer.close();
     }
 
@@ -42,7 +41,7 @@ class JsonReaderTest{
     void testReaderNonExistentFile() {
         JsonReader reader = new JsonReader("./data/noSuchFile.json");
         try {
-            NBodySimulation NBS = reader.read();
+            NBodySimulation simulation = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
             // pass
@@ -53,9 +52,9 @@ class JsonReaderTest{
     void testReaderEmptyWorkRoom() {
         JsonReader reader = new JsonReader("./data/testNBodySimulationNoPlanets.json");
         try {
-            NBodySimulation NBS = reader.read();
-            assertEquals(1, NBS.getGravitationalConstant());
-            assertEquals(0, NBS.numPlanets());
+            NBodySimulation simulation = reader.read();
+            assertEquals(1, simulation.getGravitationalConstant());
+            assertEquals(0, simulation.numPlanets());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
@@ -67,13 +66,13 @@ class JsonReaderTest{
         try {
             Planet planet1 = new Planet(100,0,0,0,0);
             Planet planet2 = new Planet(10,10,0,0,5);
-            NBodySimulation NBS = reader.read();
-            NBS = reader.read();
-            assertEquals(1, NBS.getGravitationalConstant());
-            assertEquals(2, NBS.numPlanets());
-            assertEquals(planet1, NBS.getPlanet(0));
-            assertEquals(planet2, NBS.getPlanet(1));
-            assertEquals(5, NBS.getPlanet(1).getDYPos());
+            NBodySimulation simulation = reader.read();
+            simulation = reader.read();
+            assertEquals(1, simulation.getGravitationalConstant());
+            assertEquals(2, simulation.numPlanets());
+            assertEquals(planet1, simulation.getPlanet(0));
+            assertEquals(planet2, simulation.getPlanet(1));
+            assertEquals(5, simulation.getPlanet(1).getDYPos());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
