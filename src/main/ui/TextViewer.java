@@ -2,23 +2,34 @@ package ui;
 
 
 import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Reader;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 // Creates a new TextViewer that can take in the data from an NBodySimulation, and inputs from the user, and prints text
+// Citation: some code taken from JsonSerializationDemo 
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class TextViewer {
+    private static final String JSON_STORE = "./data/NBodySimulation.json";
     Console console = System.console();
     Reader consoleReader = console.reader();
     NBodySimulation simulation;
     DecimalFormat df;
     Scanner scanner;
+    JsonReader jsonReader;
+    JsonWriter jsonWriter;
 
     public TextViewer(NBodySimulation simulation) {
         this.simulation = simulation;
         df = new DecimalFormat("#.###");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     
@@ -62,7 +73,11 @@ public class TextViewer {
             runHelp();
         } else if (command.equals("a")) {
             addPlanet();
-        } else if (command.equals("r")) {
+        } else if (command.equals("s")) {
+            saveNBS();
+        } else if (command.equals("l")) {
+            loadNBS();
+        } else if (command.equals("r")){
             removePlanet();
         } else if (command.equals("g")) {
             changeG();
@@ -86,6 +101,8 @@ public class TextViewer {
         System.out.println("\"t\" run given number of ticks");
         System.out.println("\"vt\" run given number of ticks, and view the planets each tick");
         System.out.println("\"g\" to change the gravitational constant");
+        System.out.println("\"s\" to save current program state");
+        System.out.println("\"l\" to load saved program state");
     }
 
     // MODIFIES: this
@@ -214,6 +231,29 @@ public class TextViewer {
         } catch (NumberFormatException e) {
             System.out.println("Error, inputted string is not a postive integer");
             throw e;
+        }
+    }
+
+    // EFFECTS: saves NBodySimulation to file
+    private void saveNBS() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(simulation);
+            jsonWriter.close();
+            System.out.println("Saved NBodySimulation to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads NBodySimulation from file
+    private void loadNBS() {
+        try {
+            simulation = jsonReader.read();
+            System.out.println("Loaded NBodySimulation from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 } 
