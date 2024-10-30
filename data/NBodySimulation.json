@@ -1,19 +1,10 @@
 {
-    "planets": [
-        {
-            "ypos": 0,
-            "xpos": 10,
-            "dypos": 0,
-            "mass": 100,
-            "dxpos": 0
-        },
-        {
-            "ypos": 0,
-            "xpos": 0,
-            "dypos": 2,
-            "mass": 1,
-            "dxpos": 0
-        }
-    ],
+    "planets": [{
+        "ypos": 1,
+        "xpos": 1,
+        "dypos": 0,
+        "mass": 1,
+        "dxpos": 0
+    }],
     "gravitationalConstant": 0.1
 }
