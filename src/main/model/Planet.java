@@ -80,6 +80,10 @@ public class Planet {
         return color;
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     // MODIFIES: this
     // REQUIRES: G != 0
     // EFFECTS: updates dxpos and dypos based on the positions of other planets

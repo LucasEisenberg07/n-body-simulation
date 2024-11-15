@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +36,9 @@ public class TestPlanet {
         assertEquals((float) 0, testPlanet.getYPos());
         assertEquals((float) 0, testPlanet.getDXPos());
         assertEquals((float) 0, testPlanet.getDYPos());
+        Color color = new Color(0, 0, 100);
+        testPlanet.setColor(color);
+        assertEquals(color, testPlanet.getColor());
     }
 
     @Test
