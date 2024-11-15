@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.border.EmptyBorder;
@@ -21,8 +19,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Creates a new ImageView that can take in the data from an NBodySimulation, and inputs from the user, and produces images
-// Some ideas on how to use swing taken from stackoverflow:
+// Creates a new ImageViewer that can take in an NBodySimulation, and inputs from the user, and produces images
+// Some ideas on how to use Swing taken from stackoverflow:
 // https://stackoverflow.com/questions/6578205/swing-jlabel-text-change-on-the-running-application
 
 public class ImageViewer extends JFrame implements ActionListener {
@@ -46,13 +44,11 @@ public class ImageViewer extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/NBodySimulation.json";
     private int width = 1500;
     private int height = 1000;
-    Console console = System.console();
-    Reader consoleReader = console.reader();
-    NBodySimulation simulation;
-    DecimalFormat df;
-    Scanner scanner;
-    JsonReader jsonReader;
-    JsonWriter jsonWriter;
+    private Console console = System.console();
+    private Reader consoleReader = console.reader();
+    private NBodySimulation simulation;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
 
     public ImageViewer(NBodySimulation simulation) {
         super("NBodySimulation");

@@ -4,9 +4,8 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
-public class PlanetImage extends JPanel{
-
-    public Color color;
+public class PlanetImage extends JPanel {
+    private Color color;
 
     public void setColor(Color color) {
         this.color = color;
