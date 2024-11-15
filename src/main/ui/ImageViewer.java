@@ -35,6 +35,8 @@ public class ImageViewer extends JFrame implements ActionListener {
     private JTextField gfield;
     private JPanel drawingPanel;
     private static final String JSON_STORE = "./data/NBodySimulation.json";
+    private int width = 1300;
+    private int height = 800;
     Console console = System.console();
     Reader consoleReader = console.reader();
     NBodySimulation simulation;
@@ -47,7 +49,7 @@ public class ImageViewer extends JFrame implements ActionListener {
         super("NBodySimulation");
         this.simulation = simulation;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(2000, 1000));
+        setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout()); // Use BorderLayout for the main frame
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -150,10 +152,11 @@ public class ImageViewer extends JFrame implements ActionListener {
     // EFFECTS: draws a given planet onto the simulation
     public void drawPlanet(Planet planet) {
         PlanetImage pimage = new PlanetImage();
-        pimage.setConstants(planet.getMass(), planet.getXPos(), planet.getYPos(), planet.getDXPos(), planet.getDYPos());
-        pimage.setBounds((int) (planet.getXPos() + 1000), (int) (planet.getYPos() + 500), 
-        20*((int) Math.round(Math.log10(planet.getMass())) + 1), 
-        20*((int) Math.round(Math.log10(planet.getMass())) + 1));
+        pimage.setColor(planet.getColor());
+        pimage.setBounds((int) (planet.getXPos() + width / 2 - 100),
+                (int) (planet.getYPos() + height / 2 - 100),
+                20 * ((int) Math.round(Math.log10(planet.getMass())) + 1),
+                20 * ((int) Math.round(Math.log10(planet.getMass())) + 1));
         drawingPanel.add(pimage);
         drawingPanel.revalidate();
         drawingPanel.repaint();

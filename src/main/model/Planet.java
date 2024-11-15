@@ -1,6 +1,8 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.json.JSONObject;
 
@@ -13,15 +15,18 @@ public class Planet {
     double ypos;
     double dxpos;
     double dypos;
+    Color color;
 
     // REQUIRES: mass > 0 && -width ≤ xpos ≤ width && -height ≤ ypos ≤ height
     // EFFECTS: creates a planet with given mass, xpos, and ypos
     public Planet(float mass, float xpos, float ypos, float dx, float dy) {
+        Random random = new Random();
         this.xpos = xpos;
         this.ypos = ypos;
         this.dxpos = dx;
         this.dypos = dy;
         this.mass = mass;
+        color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(255));
     }
 
     // MODIFIES: this
@@ -69,6 +74,10 @@ public class Planet {
 
     public void setMass(float mass) {
         this.mass = mass;
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     // MODIFIES: this
