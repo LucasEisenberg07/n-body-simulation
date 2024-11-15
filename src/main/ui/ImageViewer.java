@@ -2,8 +2,12 @@ package ui;
 
 import javax.swing.*;
 import java.io.Console;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Reader;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.border.EmptyBorder;
@@ -34,9 +38,14 @@ public class ImageViewer extends JFrame implements ActionListener {
     private JTextField dyfield;
     private JTextField gfield;
     private JPanel drawingPanel;
+    private JButton tickButton;
+    private JButton addPlanetButton;
+    private JButton gbutton;
+    private JButton saveButton;
+    private JButton loadButton;
     private static final String JSON_STORE = "./data/NBodySimulation.json";
-    private int width = 1300;
-    private int height = 800;
+    private int width = 1500;
+    private int height = 1000;
     Console console = System.console();
     Reader consoleReader = console.reader();
     NBodySimulation simulation;
@@ -47,39 +56,18 @@ public class ImageViewer extends JFrame implements ActionListener {
 
     public ImageViewer(NBodySimulation simulation) {
         super("NBodySimulation");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         this.simulation = simulation;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(width, height));
         setLayout(new BorderLayout()); // Use BorderLayout for the main frame
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(20, 20, 20, 20));
-
-        // Initialize buttons and fields
-        JButton tickButton = new JButton("Tick");
-        JButton addPlanetButton = new JButton("Add a planet");
-        JButton gbutton = new JButton("Change gravitational constant");
-        tickButton.setActionCommand("runTick");
-        tickButton.addActionListener(this);
-        addPlanetButton.setActionCommand("addPlanet");
-        addPlanetButton.addActionListener(this);
-        gbutton.setActionCommand("changeG");
-        gbutton.addActionListener(this);
-        initializeLabelsAndFields();
-
-        // Add buttons and fields to the frame
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new FlowLayout());
-        controlPanel.add(tickButton);
-        drawLabelsAndFields(controlPanel);
-        controlPanel.add(addPlanetButton);
-        controlPanel.add(gfield);
-        controlPanel.add(gbutton);
-        add(controlPanel, BorderLayout.NORTH);
-
+        initializeControlPanel();
         // Initialize drawing panel
         drawingPanel = new JPanel();
-        drawingPanel.setLayout(null); // Use null layout for absolute positioning
+        drawingPanel.setLayout(null);
         add(drawingPanel, BorderLayout.CENTER);
-
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -118,11 +106,55 @@ public class ImageViewer extends JFrame implements ActionListener {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes the buttons and fields on the control panel
+    private void initializeControlPanel() {
+        initializeLabelsAndFields();
+        tickButton = new JButton("Tick");
+        addPlanetButton = new JButton("Add a planet");
+        gbutton = new JButton("Change gravitational constant");
+        saveButton = new JButton("save");
+        loadButton = new JButton("load");
+        tickButton.setActionCommand("runTick");
+        tickButton.addActionListener(this);
+        addPlanetButton.setActionCommand("addPlanet");
+        addPlanetButton.addActionListener(this);
+        saveButton.setActionCommand("save");
+        saveButton.addActionListener(this);
+        loadButton.setActionCommand("load");
+        loadButton.addActionListener(this);
+        gbutton.setActionCommand("changeG");
+        gbutton.addActionListener(this);
+        addButtonsAndFields();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add buttons, fields, and labels to the frame
+    private void addButtonsAndFields() {
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(new FlowLayout());
+        controlPanel.add(tickButton);
+        drawLabelsAndFields(controlPanel);
+        controlPanel.add(addPlanetButton);
+        controlPanel.add(gfield);
+        controlPanel.add(gbutton);
+        controlPanel.add(saveButton);
+        controlPanel.add(loadButton);
+        add(controlPanel, BorderLayout.NORTH);
+    }
+
     // MODIFIES: this, simulation
     // EFFECTS: perform actions based on user input
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("runTick")) {
             simulation.tick(1);
+            redraw();
+        }
+        if (e.getActionCommand().equals("save")) {
+            saveNBS();
+        }
+        if (e.getActionCommand().equals("load")) {
+            loadNBS();
             redraw();
         }
         if (e.getActionCommand().equals("changeG")) {
@@ -160,5 +192,28 @@ public class ImageViewer extends JFrame implements ActionListener {
         drawingPanel.add(pimage);
         drawingPanel.revalidate();
         drawingPanel.repaint();
+    }
+
+    // EFFECTS: saves NBodySimulation to file
+    private void saveNBS() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(simulation);
+            jsonWriter.close();
+            System.out.println("Saved NBodySimulation to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads NBodySimulation from file
+    private void loadNBS() {
+        try {
+            simulation = jsonReader.read();
+            System.out.println("Loaded NBodySimulation from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
