@@ -14,9 +14,13 @@ public abstract class Image extends JPanel {
     @Override
     // MODIFIES: this
     // EFFECTS: draws image onto panel
-    protected void paintComponent(Graphics g){}
+    protected void paintComponent(Graphics g) {
+
+    }
 
     // MODIFIES: g
     // EFFECTS: draws image onto graphics
-    private void draw(Graphics g){}
+    private void draw(Graphics g) {
+
+    }
 }
