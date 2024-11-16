@@ -1,13 +1,45 @@
 {
-    "planets": [{
-        "red": 113,
-        "ypos": 0,
-        "green": 159,
-        "xpos": 0,
-        "blue": 154,
-        "dypos": 0,
-        "mass": 1000000,
-        "dxpos": 0
-    }],
+    "planets": [
+        {
+            "red": 178,
+            "ypos": 0,
+            "green": 88,
+            "xpos": -500,
+            "blue": 156,
+            "dypos": 0,
+            "mass": 1000000,
+            "dxpos": 5
+        },
+        {
+            "red": 6,
+            "ypos": 300,
+            "green": 231,
+            "xpos": -500,
+            "blue": 36,
+            "dypos": 0,
+            "mass": 10000,
+            "dxpos": 25
+        },
+        {
+            "red": 93,
+            "ypos": -300,
+            "green": 63,
+            "xpos": -500,
+            "blue": 219,
+            "dypos": 0,
+            "mass": 10000,
+            "dxpos": -15
+        },
+        {
+            "red": 64,
+            "ypos": 0,
+            "green": 112,
+            "xpos": -300,
+            "blue": 60,
+            "dypos": 20,
+            "mass": 1,
+            "dxpos": 0
+        }
+    ],
     "gravitationalConstant": 0.1
 }
