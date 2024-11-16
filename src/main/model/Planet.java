@@ -112,6 +112,9 @@ public class Planet {
         json.put("ypos", ypos);
         json.put("dxpos", dxpos);
         json.put("dypos", dypos);
+        json.put("blue", color.getBlue());
+        json.put("green", color.getGreen());
+        json.put("red", color.getRed());
         return json;
     }
     

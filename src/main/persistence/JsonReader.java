@@ -2,12 +2,13 @@ package persistence;
 
 import model.*;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
-import org.json.*; 
+import org.json.*;
 
 // Represents a reader that reads NBodySimulation from JSON data stored in file
 // Citation: some code taken from JsonSerializationDemo 
@@ -63,6 +64,9 @@ public class JsonReader {
         Float dxpos = jsonObject.getFloat("dxpos");
         Float dypos = jsonObject.getFloat("dypos");
         int mass = jsonObject.getInt("mass");
-        simulation.addPlanetWithVelocity(mass, xpos, ypos, dxpos, dypos);
+        Color color = new Color(jsonObject.getInt("red"),
+                jsonObject.getInt("green"),
+                jsonObject.getInt("blue"));
+        simulation.addPlanetWithVelocity(mass, xpos, ypos, dxpos, dypos, color);
     }
 }

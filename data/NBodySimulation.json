@@ -1,9 +1,12 @@
 {
     "planets": [{
-        "ypos": 1,
-        "xpos": 1,
+        "red": 113,
+        "ypos": 0,
+        "green": 159,
+        "xpos": 0,
+        "blue": 154,
         "dypos": 0,
-        "mass": 1,
+        "mass": 1000000,
         "dxpos": 0
     }],
     "gravitationalConstant": 0.1

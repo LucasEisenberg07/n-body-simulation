@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -42,6 +43,14 @@ public class NBodySimulation {
     // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, and dypos to planets
     public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos) {
         Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
+        planets.add(p);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, dypos, and color to planets
+    public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos, Color color) {
+        Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
+        p.setColor(color);
         planets.add(p);
     }
 
