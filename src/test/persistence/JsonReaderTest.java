@@ -5,6 +5,7 @@ import model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -26,7 +27,7 @@ class JsonReaderTest {
         writer.close();
         simulation = new NBodySimulation(1);
         simulation.addPlanet(100,0,0);
-        simulation.addPlanetWithVelocity(10,10,0,0,5);
+        simulation.addPlanetWithVelocity(10,10,0,0,5, new Color(0,255,0));
         writer = new JsonWriter("./data/testWriterMultiplePlanets.json");
         try {
             writer.open();
@@ -73,6 +74,7 @@ class JsonReaderTest {
             assertEquals(planet1, simulation.getPlanet(0));
             assertEquals(planet2, simulation.getPlanet(1));
             assertEquals(5, simulation.getPlanet(1).getDYPos());
+            assertEquals(255, simulation.getPlanet(1).getColor().getGreen());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

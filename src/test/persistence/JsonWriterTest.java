@@ -3,6 +3,7 @@ package persistence;
 import model.*;
 import org.junit.jupiter.api.Test;
 
+import java.awt.Color;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,7 +48,7 @@ class JsonWriterTest {
             Planet planet1 = new Planet(100,0,0,0,0);
             Planet planet2 = new Planet(10,10,0,0,5);
             simulation.addPlanet(100,0,0);
-            simulation.addPlanetWithVelocity(10,10,0,0,5);
+            simulation.addPlanetWithVelocity(10,10,0,0,5, new Color(0,255,0));
             JsonWriter writer = new JsonWriter("./data/testWriterMultiplePlanets.json");
             writer.open();
             writer.write(simulation);
@@ -60,6 +61,7 @@ class JsonWriterTest {
             assertEquals(planet1, simulation.getPlanet(0));
             assertEquals(planet2, simulation.getPlanet(1));
             assertEquals(5, simulation.getPlanet(1).getDYPos());
+            assertEquals(255, simulation.getPlanet(1).getColor().getGreen());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
