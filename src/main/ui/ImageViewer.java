@@ -181,7 +181,7 @@ public class ImageViewer extends JFrame implements ActionListener {
     public void drawPlanet(Planet planet) {
         PlanetImage pimage = new PlanetImage();
         pimage.setColor(planet.getColor());
-        int size = 20 * ((int) Math.round(Math.log10(planet.getMass())) + 1);
+        int size = 20 * ((int) Math.round(Math.log10(Math.abs(planet.getMass()))) + 1);
         pimage.setBounds((int) (planet.getXPos() + width / 2 - size / 2 - 40),
                 (int) (planet.getYPos() + height / 2 - size / 2 - 80),
                 size,

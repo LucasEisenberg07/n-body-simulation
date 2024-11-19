@@ -26,7 +26,12 @@ public class Planet {
         this.dxpos = dx;
         this.dypos = dy;
         this.mass = mass;
-        color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(255));
+        if (mass <= 0) {
+            color = new Color(255, 255, 255);
+        } else {
+            color = new Color(random.nextInt(256), random.nextInt(256), random.nextInt(255));
+        }
+       
     }
 
     // MODIFIES: this
