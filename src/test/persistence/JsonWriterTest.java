@@ -49,6 +49,16 @@ class JsonWriterTest {
             Planet planet2 = new Planet(10,10,0,0,5);
             simulation.addPlanet(100,0,0);
             simulation.addPlanetWithVelocity(10,10,0,0,5, new Color(0,255,0));
+
+
+
+
+
+
+
+
+
+            
             JsonWriter writer = new JsonWriter("./data/testWriterMultiplePlanets.json");
             writer.open();
             writer.write(simulation);
