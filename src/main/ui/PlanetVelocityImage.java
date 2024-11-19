@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
+// not currently implimented, would create an image of the velocity of the planets to be displayed on screen
+
 public class PlanetVelocityImage extends Image {
     // MODIFIES: this
     // EFFECTS: draws image onto panel

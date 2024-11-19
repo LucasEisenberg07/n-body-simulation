@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.JPanel;
 
+// creates a new image that can be added to the screen
+
 public abstract class Image extends JPanel {
     protected Color color;
 

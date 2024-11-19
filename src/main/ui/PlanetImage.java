@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.*;
 
+// creates an image of a planet to be added onto the screen
+
 public class PlanetImage extends Image {
     // MODIFIES: this
     // EFFECTS: draws image onto panel
