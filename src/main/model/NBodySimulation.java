@@ -20,14 +20,63 @@ public class NBodySimulation {
     }
 
     // MODIFIES: this
-    // EFFECTS: finds the velocities of all planets and updates their position by given number of ticks
+    // EFFECTS: finds the velocities of all planets and updates their position by
+    // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
+            checkForCollisions();
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
             }
             for (Planet planet : planets) {
                 planet.updatePos();
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: checks and executes any collisions
+    private void checkForCollisions() {
+        for (int i1 = 0; i1 < planets.size(); i1++) {
+            for (int i2 = 0; i2 < planets.size(); i2++) {
+                Planet planet1 = planets.get(i1);
+                Planet planet2 = planets.get(i2);
+                if (planet1 != planet2) {
+                    int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) + 1);
+                    int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) + 1);
+                    double dx = Math.abs(planet1.getXPos() - planet2.getXPos());
+                    double dy = Math.abs(planet1.getYPos() - planet2.getYPos());
+                    double differenceBetween = Math.sqrt(dx * dx + dy * dy);
+                    if (differenceBetween < (size1 + size2)/2) {
+                        if (i1 < i2) {
+                            planets.remove(i2);
+                            planets.remove(i1);
+                        } else {
+                            planets.remove(i1);
+                            planets.remove(i2);
+                        }
+                        Planet newPlanet = new Planet((float) (planet1.getMass() + planet2.getMass()),
+                                (float) (planet1.getXPos() - (planet1.getXPos() - planet2.getXPos()) / 2),
+                                (float) (planet1.getYPos() - (planet1.getYPos() - planet2.getYPos()) / 2),
+                                (float) ((planet1.getMass() * planet1.getDXPos()
+                                        + planet2.getMass() * planet2.getDXPos())
+                                        / (planet1.getMass() + planet2.getMass())),
+                                (float) ((planet1.getMass() * planet1.getDYPos()
+                                        + planet2.getMass() * planet2.getDYPos())
+                                        / (planet1.getMass() + planet2.getMass())));
+                        int red = (int) Math.round((planet1.getColor().getRed() * planet1.getMass()
+                                + planet2.getColor().getRed() * planet2.getMass()) /
+                                (2 * (planet1.getMass() + planet2.getMass())));
+                        int green = (int) Math.round((planet1.getColor().getGreen() * planet1.getMass()
+                                + planet2.getColor().getGreen() * planet2.getMass()) /
+                                (2 * (planet1.getMass() + planet2.getMass())));
+                        int blue = (int) Math.round((planet1.getColor().getBlue() * planet1.getMass()
+                                + planet2.getColor().getBlue() * planet2.getMass()) /
+                                (2 * (planet1.getMass() + planet2.getMass())));
+                        newPlanet.setColor(new Color(red, green, blue));
+                        planets.add(newPlanet);
+                    }
+                }
             }
         }
     }
@@ -40,14 +89,16 @@ public class NBodySimulation {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, and dypos to planets
+    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, and dypos to
+    // planets
     public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos) {
         Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
         planets.add(p);
     }
 
     // MODIFIES: this
-    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, dypos, and color to planets
+    // EFFECTS: adds a new planet with given mass, xpos, ypos, dxpos, dypos, and
+    // color to planets
     public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos, Color color) {
         Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
         p.setColor(color);
