@@ -1,12 +1,8 @@
 package ui;
 
 import javax.swing.*;
-import java.io.Console;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Reader;
-import java.text.DecimalFormat;
-import java.util.Scanner;
 
 import javax.swing.border.EmptyBorder;
 
@@ -44,8 +40,6 @@ public class ImageViewer extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/NBodySimulation.json";
     private int width = 1500;
     private int height = 1000;
-    private Console console = System.console();
-    private Reader consoleReader = console.reader();
     private NBodySimulation simulation;
     private JsonReader jsonReader;
     private JsonWriter jsonWriter;

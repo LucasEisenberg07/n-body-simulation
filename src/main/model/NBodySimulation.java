@@ -24,7 +24,7 @@ public class NBodySimulation {
     // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
-            checkForCollisions();
+            // checkForCollisions();
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
             }
@@ -36,6 +36,7 @@ public class NBodySimulation {
 
     // MODIFIES: this
     // EFFECTS: checks and executes any collisions
+    /* 
     private void checkForCollisions() {
         for (int i1 = 0; i1 < planets.size(); i1++) {
             for (int i2 = 0; i2 < planets.size(); i2++) {
@@ -80,6 +81,7 @@ public class NBodySimulation {
             }
         }
     }
+     */
 
     // MODIFIES: this
     // EFFECTS: adds a new planet with given mass, xpos, and ypos to planets

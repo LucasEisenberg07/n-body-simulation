@@ -15,6 +15,7 @@ public class TestPlanet {
     Planet testPlanet;
     Planet otherPlanet;
     Planet anotherPlanet;
+    Planet whiteHole;
     ArrayList<Planet> testPlanets;
     float gravitationalConstant;
 
@@ -23,6 +24,7 @@ public class TestPlanet {
         testPlanet = new Planet(10, 0, 0, 0, 0);
         otherPlanet = new Planet(100, 10, 0, 0, 0);
         anotherPlanet = new Planet(100, 0, 10, 0, 0);
+        whiteHole = new Planet(-100, 0, 10, 0, 0);
         gravitationalConstant = 1;
         testPlanets = new ArrayList<Planet>();
         testPlanets.add(otherPlanet);
@@ -39,6 +41,8 @@ public class TestPlanet {
         Color color = new Color(0, 0, 100);
         testPlanet.setColor(color);
         assertEquals(color, testPlanet.getColor());
+        color = new Color(255, 255, 255);
+        assertEquals(color, whiteHole.getColor());
     }
 
     @Test
