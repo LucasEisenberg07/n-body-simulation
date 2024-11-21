@@ -155,7 +155,7 @@ public class ImageViewer extends JFrame implements ActionListener {
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                 RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.drawImage(catImage, 0, 0, 50, 30, 0, 0, catImage.getWidth(),
-        catImage.getHeight(), null);
+                catImage.getHeight(), null);
         g.dispose();
         JLabel catLabel = new JLabel(new ImageIcon(catResized));
         panel.add(catLabel);
