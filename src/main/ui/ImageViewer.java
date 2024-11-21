@@ -1,6 +1,9 @@
 package ui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -14,6 +17,9 @@ import persistence.JsonWriter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 // Creates a new ImageViewer that can take in an NBodySimulation, and inputs from the user, and produces images
 // Some ideas on how to use Swing taken from stackoverflow:
@@ -123,6 +129,7 @@ public class ImageViewer extends JFrame implements ActionListener {
     private void addButtonsAndFields() {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
+        printCat(controlPanel);
         controlPanel.add(tickButton);
         drawLabelsAndFields(controlPanel);
         controlPanel.add(addPlanetButton);
@@ -131,6 +138,27 @@ public class ImageViewer extends JFrame implements ActionListener {
         controlPanel.add(saveButton);
         controlPanel.add(loadButton);
         add(controlPanel, BorderLayout.NORTH);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prints a cat
+
+    private void printCat(JPanel panel) {
+        BufferedImage catImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+        try {
+            catImage = ImageIO.read(new File("/Users/lucaseisenberg/CPSC 210 Projects/NBodySimulation/data/cat.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedImage catResized = new BufferedImage(50, 30, catImage.getType());
+        Graphics2D g = catResized.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g.drawImage(catImage, 0, 0, 50, 30, 0, 0, catImage.getWidth(),
+        catImage.getHeight(), null);
+        g.dispose();
+        JLabel catLabel = new JLabel(new ImageIcon(catResized));
+        panel.add(catLabel);
     }
 
     // MODIFIES: this, simulation
@@ -180,6 +208,7 @@ public class ImageViewer extends JFrame implements ActionListener {
                 (int) (planet.getYPos() + height / 2 - size / 2 - 80),
                 size,
                 size);
+
         drawingPanel.add(pimage);
         drawingPanel.revalidate();
         drawingPanel.repaint();
