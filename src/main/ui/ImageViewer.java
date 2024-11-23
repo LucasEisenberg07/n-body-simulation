@@ -73,6 +73,13 @@ public class ImageViewer extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(true);
+        initializeWindowListener();
+    }
+
+
+    // MODIFIES: this
+    // EFFECTS: initializes the windowlistener
+    private void initializeWindowListener() {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 Iterator iterator = EventLog.getInstance().iterator();
