@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.swing.border.EmptyBorder;
 
@@ -13,12 +14,16 @@ import model.NBodySimulation;
 import model.Planet;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import model.EventLog;
+import model.Event;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 // Creates a new ImageViewer that can take in an NBodySimulation, and inputs from the user, and produces images
@@ -68,6 +73,16 @@ public class ImageViewer extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setVisible(true);
         setResizable(true);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                Iterator iterator = EventLog.getInstance().iterator();
+                while (iterator.hasNext()) {
+                    Event currentEvent = (Event) iterator.next();
+                    System.out.println(currentEvent.getDescription());
+                }
+                dispose();
+            }
+        });
     }
 
     // MODIFIES: this
@@ -142,7 +157,6 @@ public class ImageViewer extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: prints a cat
-
     private void printCat(JPanel panel) {
         BufferedImage catImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
         try {
@@ -160,6 +174,7 @@ public class ImageViewer extends JFrame implements ActionListener {
         JLabel catLabel = new JLabel(new ImageIcon(catResized));
         panel.add(catLabel);
     }
+
 
     // MODIFIES: this, simulation
     // EFFECTS: perform actions based on user input
@@ -187,6 +202,7 @@ public class ImageViewer extends JFrame implements ActionListener {
             redraw();
         }
     }
+
 
     // EFFECTS: draws the current planets onto the simulation
     private void redraw() {

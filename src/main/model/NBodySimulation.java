@@ -3,6 +3,8 @@ package model;
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,7 +15,6 @@ public class NBodySimulation {
 
     ArrayList<Planet> planets;
     float gravitationalConstant;
-
     public NBodySimulation(float gravitationalConstant) {
         planets = new ArrayList<Planet>();
         this.gravitationalConstant = gravitationalConstant;
@@ -24,7 +25,7 @@ public class NBodySimulation {
     // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
-            // checkForCollisions();
+            EventLog.getInstance().logEvent(new Event("Planets ticked"));
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
             }
@@ -88,6 +89,8 @@ public class NBodySimulation {
     public void addPlanet(int mass, float xpos, float ypos) {
         Planet p = new Planet(mass, xpos, ypos, 0, 0);
         planets.add(p);
+        EventLog.getInstance().logEvent(new Event("A planet was added"));
+
     }
 
     // MODIFIES: this
@@ -96,6 +99,7 @@ public class NBodySimulation {
     public void addPlanetWithVelocity(int mass, float xpos, float ypos, float dxpos, float dypos) {
         Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
         planets.add(p);
+        EventLog.getInstance().logEvent(new Event("A planet was added"));
     }
 
     // MODIFIES: this
@@ -105,6 +109,7 @@ public class NBodySimulation {
         Planet p = new Planet(mass, xpos, ypos, dxpos, dypos);
         p.setColor(color);
         planets.add(p);
+        EventLog.getInstance().logEvent(new Event("A planet was added"));
     }
 
     // REQUIRES: 0 <= index <= planets.size()
@@ -113,6 +118,7 @@ public class NBodySimulation {
     public void removePlanet(int index) {
         ArrayList<Planet> newPlanets = new ArrayList<Planet>();
         Planet planetToRemove = planets.get(index);
+        EventLog.getInstance().logEvent(new Event("A planet was removed"));
         for (Planet planet : planets) {
             if (planet != planetToRemove) {
                 newPlanets.add(planet);
@@ -134,6 +140,7 @@ public class NBodySimulation {
 
     // EFFECTS: converts this into Json
     public JSONObject toJson() {
+        EventLog.getInstance().logEvent(new Event("Program saved"));
         JSONObject json = new JSONObject();
         json.put("gravitationalConstant", gravitationalConstant);
         json.put("planets", planetsToJson());
@@ -142,6 +149,7 @@ public class NBodySimulation {
 
     // EFFECTS: converts planets into Json
     private JSONArray planetsToJson() {
+
         JSONArray jsonArray = new JSONArray();
 
         for (Planet p : planets) {
@@ -152,6 +160,7 @@ public class NBodySimulation {
     }
 
     public void setGravitationalConstant(float gravitationalConstant) {
+        EventLog.getInstance().logEvent(new Event("Gravitational constant changed"));
         this.gravitationalConstant = gravitationalConstant;
     }
 

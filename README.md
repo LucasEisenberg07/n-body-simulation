@@ -21,3 +21,19 @@
 ## User stories phase 2
 - I wish to be able to save the current planets and gravitational constant in NBodySimulation to a file
 - I wish to be able to load a list of planets and gravitational constant from a file
+
+- Phase 4: Task 2 example log of program:
+- A planet was added
+- A planet was added
+- A planet was added
+- A planet was added
+- Planets ticked
+- Planets ticked
+- A planet was added
+- Planets ticked
+- Gravitational constant changed
+- Planets ticked
+- Planets ticked
+- A planet was added
+- Planets ticked
+- Program saved
