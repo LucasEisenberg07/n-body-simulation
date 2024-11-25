@@ -37,3 +37,7 @@
 - A planet was added
 - Planets ticked
 - Program saved
+
+Phase 4: Task 3
+
+There are a few changes I could make to my program to refactor it. For instance, JsonWriter and JsonReader are both used by ImageViewer and they have similar sorts of methods and constants, so I could combine these into one class. This new class would be called something like "JsonUser", and would handle both the writing and reading of the Json file. This way, the varibles source (in JsonReader) and destination (in JsonWriter) could be combined into a new varible called "fileDirectory". In addition, ImageViewer would only have to instantiate one JsonUser instead of one JsonReader and JsonWriter. In addition, this refactoring would make ImageViewer more straightforwards because it only has to deal with one object whoes goal is data persistance. These are some reasons why I think this refactoring could be benificial for the program.
