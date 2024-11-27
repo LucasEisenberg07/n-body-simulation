@@ -151,7 +151,6 @@ public class ImageViewer extends JFrame implements ActionListener {
     private void addButtonsAndFields() {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout());
-        printCat(controlPanel);
         controlPanel.add(tickButton);
         drawLabelsAndFields(controlPanel);
         controlPanel.add(addPlanetButton);
@@ -167,7 +166,7 @@ public class ImageViewer extends JFrame implements ActionListener {
     private void printCat(JPanel panel) {
         BufferedImage catImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
         try {
-            catImage = ImageIO.read(new File("/Users/lucaseisenberg/CPSC 210 Projects/NBodySimulation/data/cat.png"));
+            catImage = ImageIO.read(new File(".data/cat.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
