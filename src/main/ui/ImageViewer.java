@@ -76,13 +76,12 @@ public class ImageViewer extends JFrame implements ActionListener {
         initializeWindowListener();
     }
 
-
     // MODIFIES: this
     // EFFECTS: initializes the windowlistener
     private void initializeWindowListener() {
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                Iterator iterator = EventLog.getInstance().iterator();
+                Iterator<Event> iterator = EventLog.getInstance().iterator();
                 while (iterator.hasNext()) {
                     Event currentEvent = (Event) iterator.next();
                     System.out.println(currentEvent.getDescription());
@@ -181,7 +180,6 @@ public class ImageViewer extends JFrame implements ActionListener {
         panel.add(catLabel);
     }
 
-
     // MODIFIES: this, simulation
     // EFFECTS: perform actions based on user input
     public void actionPerformed(ActionEvent e) {
@@ -200,15 +198,14 @@ public class ImageViewer extends JFrame implements ActionListener {
             simulation.setGravitationalConstant(Float.parseFloat(gfield.getText()));
         }
         if (e.getActionCommand().equals("addPlanet")) {
-            simulation.addPlanetWithVelocity(Integer.parseInt(massField.getText()),
-                    Float.parseFloat(xposField.getText()),
-                    Float.parseFloat(yposField.getText()),
-                    Float.parseFloat(dxfield.getText()),
-                    Float.parseFloat(dyfield.getText()));
-            redraw();
+            if (Integer.parseInt(massField.getText()) != 0) {
+                simulation.addPlanetWithVelocity(Integer.parseInt(massField.getText()),
+                        Float.parseFloat(xposField.getText()), Float.parseFloat(yposField.getText()),
+                        Float.parseFloat(dxfield.getText()), Float.parseFloat(dyfield.getText()));
+                redraw();
+            }
         }
     }
-
 
     // EFFECTS: draws the current planets onto the simulation
     private void redraw() {

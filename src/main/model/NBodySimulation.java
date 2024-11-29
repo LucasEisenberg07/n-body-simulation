@@ -27,8 +27,8 @@ public class NBodySimulation {
     // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
-            EventLog.getInstance().logEvent(new Event("Planets ticked"));
             checkForCollisions();
+            EventLog.getInstance().logEvent(new Event("Planets ticked"));
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
             }
@@ -40,17 +40,13 @@ public class NBodySimulation {
 
     // MODIFIES: this
     // EFFECTS: checks and executes any collisions
-
     private void checkForCollisions() {
         for (int i1 = 0; i1 < planets.size(); i1++) {
             for (int i2 = 0; i2 < planets.size(); i2++) {
                 Planet planet1 = planets.get(i1);
                 Planet planet2 = planets.get(i2);
                 if (planet1 != planet2) {
-                    int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) + 1);
-                    int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) + 1);
-                    double differenceBetween = getDistanceBetween(planet1, planet2);
-                    if (differenceBetween < (size1 + size2) / 2) {
+                    if (doTheyCollide(planet1, planet2)) {
                         EventLog.getInstance().logEvent(new Event("Boom! Collision!"));
                         planets.remove(planet1);
                         planets.remove(planet2);
@@ -59,21 +55,26 @@ public class NBodySimulation {
                         int green = getGreen(planet1, planet2);
                         int blue = getBlue(planet1, planet2);
                         newPlanet.setColor(new Color(red, green, blue));
-                        planets.add(newPlanet);
+                        if (newPlanet.getMass() != 0) {
+                            planets.add(newPlanet);
+                        }
                     }
                 }
             }
         }
     }
 
-    private double getDistanceBetween(Planet planet1, Planet planet2) {
+    // EFFECTS: returns true if two planets are colliding
+    private Boolean doTheyCollide(Planet planet1, Planet planet2) {
         int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) + 1);
         int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) + 1);
         double dx = Math.abs(planet1.getXPos() - planet2.getXPos());
         double dy = Math.abs(planet1.getYPos() - planet2.getYPos());
-        return Math.sqrt(dx * dx + dy * dy);
+        double differenceBetween = Math.sqrt(dx * dx + dy * dy);
+        return differenceBetween < (size1 + size2) / 2;
     }
 
+    // EFFECTS: returns the new red value of the planets after colliding
     private int getRed(Planet planet1, Planet planet2) {
         return (int) Math.round((planet1.getColor().getRed()
                 * planet1.getMass()
@@ -81,6 +82,7 @@ public class NBodySimulation {
                 / ((planet1.getMass() + planet2.getMass())));
     }
 
+    // EFFECTS: returns the new green value of the planets after colliding
     private int getGreen(Planet planet1, Planet planet2) {
         return (int) Math.round((planet1.getColor().getGreen()
                 * planet1.getMass()
@@ -88,6 +90,7 @@ public class NBodySimulation {
                 / ((planet1.getMass() + planet2.getMass())));
     }
 
+    // EFFECTS: returns the new blue value of the planets after colliding
     private int getBlue(Planet planet1, Planet planet2) {
         return (int) Math.round((planet1.getColor().getBlue()
                 * planet1.getMass()
@@ -95,6 +98,7 @@ public class NBodySimulation {
                 / ((planet1.getMass() + planet2.getMass())));
     }
 
+    // EFFECTS: makes a new planet corresponding to the collision of planet1 and planet2
     private Planet makeNewPlanet(Planet planet1, Planet planet2) {
         return new Planet((float) (planet1.getMass()
                 + planet2.getMass()),
