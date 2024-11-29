@@ -46,47 +46,69 @@ public class NBodySimulation {
                 Planet planet1 = planets.get(i1);
                 Planet planet2 = planets.get(i2);
                 if (planet1 != planet2) {
-                    int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) +
-                            1);
-                    int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) +
-                            1);
-                    double dx = Math.abs(planet1.getXPos() - planet2.getXPos());
-                    double dy = Math.abs(planet1.getYPos() - planet2.getYPos());
-                    double differenceBetween = Math.sqrt(dx * dx + dy * dy);
+                    int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) + 1);
+                    int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) + 1);
+                    double differenceBetween = getDistanceBetween(planet1, planet2);
                     if (differenceBetween < (size1 + size2) / 2) {
-                        if (i1 < i2) {
-                            planets.remove(i2);
-                            planets.remove(i1);
-                        } else {
-                            planets.remove(i1);
-                            planets.remove(i2);
-                        }
-                        Planet newPlanet = new Planet((float) (planet1.getMass() +
-                                planet2.getMass()),
-                                (float) (planet1.getXPos() - (planet1.getXPos() - planet2.getXPos()) / 2),
-                                (float) (planet1.getYPos() - (planet1.getYPos() - planet2.getYPos()) / 2),
-                                (float) ((planet1.getMass() * planet1.getDXPos()
-                                        + planet2.getMass() * planet2.getDXPos())
-                                        / (planet1.getMass() + planet2.getMass())),
-                                (float) ((planet1.getMass() * planet1.getDYPos()
-                                        + planet2.getMass() * planet2.getDYPos())
-                                        / (planet1.getMass() + planet2.getMass())));
-                        int red = (int) Math.round((planet1.getColor().getRed() * planet1.getMass()
-                                + planet2.getColor().getRed() * planet2.getMass()) /
-                                (2 * (planet1.getMass() + planet2.getMass())));
-                        int green = (int) Math.round((planet1.getColor().getGreen() *
-                                planet1.getMass()
-                                + planet2.getColor().getGreen() * planet2.getMass()) /
-                                (2 * (planet1.getMass() + planet2.getMass())));
-                        int blue = (int) Math.round((planet1.getColor().getBlue() * planet1.getMass()
-                                + planet2.getColor().getBlue() * planet2.getMass()) /
-                                (2 * (planet1.getMass() + planet2.getMass())));
+                        EventLog.getInstance().logEvent(new Event("Boom! Collision!"));
+                        planets.remove(planet1);
+                        planets.remove(planet2);
+                        Planet newPlanet = makeNewPlanet(planet1, planet2);
+                        int red = getRed(planet1, planet2);
+                        int green = getGreen(planet1, planet2);
+                        int blue = getBlue(planet1, planet2);
                         newPlanet.setColor(new Color(red, green, blue));
                         planets.add(newPlanet);
                     }
                 }
             }
         }
+    }
+
+    private double getDistanceBetween(Planet planet1, Planet planet2) {
+        int size1 = 20 * ((int) Math.round(Math.log10(Math.abs(planet1.getMass()))) + 1);
+        int size2 = 20 * ((int) Math.round(Math.log10(Math.abs(planet2.getMass()))) + 1);
+        double dx = Math.abs(planet1.getXPos() - planet2.getXPos());
+        double dy = Math.abs(planet1.getYPos() - planet2.getYPos());
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    private int getRed(Planet planet1, Planet planet2) {
+        return (int) Math.round((planet1.getColor().getRed()
+                * planet1.getMass()
+                + planet2.getColor().getRed() * planet2.getMass())
+                / ((planet1.getMass() + planet2.getMass())));
+    }
+
+    private int getGreen(Planet planet1, Planet planet2) {
+        return (int) Math.round((planet1.getColor().getGreen()
+                * planet1.getMass()
+                + planet2.getColor().getGreen() * planet2.getMass())
+                / ((planet1.getMass() + planet2.getMass())));
+    }
+
+    private int getBlue(Planet planet1, Planet planet2) {
+        return (int) Math.round((planet1.getColor().getBlue()
+                * planet1.getMass()
+                + planet2.getColor().getBlue() * planet2.getMass())
+                / ((planet1.getMass() + planet2.getMass())));
+    }
+
+    private Planet makeNewPlanet(Planet planet1, Planet planet2) {
+        return new Planet((float) (planet1.getMass()
+                + planet2.getMass()),
+                (float) ((((planet1.getXPos() * planet1.getMass()
+                        + planet2.getXPos() * planet2.getMass()))
+                        / (planet1.getMass() + planet2.getMass()))),
+                (float) ((((planet1.getYPos() * planet1.getMass()
+                        + planet2.getYPos() * planet2.getMass()))
+                        / (planet1.getMass() + planet2.getMass()))),
+                (float) ((planet1.getMass() * planet1.getDXPos()
+                        + planet2.getMass() * planet2.getDXPos())
+                        / (planet1.getMass() + planet2.getMass())),
+                (float) ((planet1.getMass() * planet1.getDYPos()
+                        + planet2.getMass() * planet2.getDYPos())
+                        / (planet1.getMass() + planet2.getMass())));
     }
 
     // MODIFIES: this
