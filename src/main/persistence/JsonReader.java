@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 import org.json.*;
 
@@ -50,15 +52,17 @@ public class JsonReader {
     // EFFECTS: parses planets from JSON object and adds them to NBodySimulation
     private void addPlanets(NBodySimulation simulation, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("planets");
+        List<Planet> planetsToAdd = new ArrayList<Planet>();
         for (Object json : jsonArray) {
             JSONObject nextPlanet = (JSONObject) json;
-            addPlanet(simulation, nextPlanet);
+            planetsToAdd.add((Planet) getPlanet(nextPlanet));
         }
+        simulation.loadPlanets(planetsToAdd);
     }
 
     // MODIFIES: NBodySimulation
     // EFFECTS: parses planet from JSON object and adds it to NBodySimulation
-    private void addPlanet(NBodySimulation simulation, JSONObject jsonObject) {
+    private Planet getPlanet(JSONObject jsonObject) {
         Float xpos = jsonObject.getFloat("xpos");
         Float ypos = jsonObject.getFloat("ypos");
         Float dxpos = jsonObject.getFloat("dxpos");
@@ -67,6 +71,9 @@ public class JsonReader {
         Color color = new Color(jsonObject.getInt("red"),
                 jsonObject.getInt("green"),
                 jsonObject.getInt("blue"));
-        simulation.addPlanetWithVelocity(mass, xpos, ypos, dxpos, dypos, color);
+
+        Planet planet = new Planet(mass, xpos, ypos, dxpos, dypos);
+        planet.setColor(color);
+        return planet;
     }
 }

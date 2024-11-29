@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -163,6 +164,12 @@ public class NBodySimulation {
     // EFFECTS: returns the number of planets in planets
     public int numPlanets() {
         return planets.size();
+    }
+
+    // EFFECTS: loads the given planets onto the simulation
+    public void loadPlanets(List<Planet> planets) {
+        EventLog.getInstance().logEvent(new Event("Program loaded"));
+        this.planets = (ArrayList) planets;
     }
 
     // EFFECTS: converts this into Json

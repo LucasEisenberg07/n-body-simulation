@@ -23,6 +23,7 @@
 - I wish to be able to load a list of planets and gravitational constant from a file
 
 - Phase 4: Task 2 example log of program:
+- Program loaded
 - A planet was added
 - A planet was added
 - A planet was added
