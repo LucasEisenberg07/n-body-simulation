@@ -39,6 +39,16 @@
             "dypos": 20,
             "mass": 1,
             "dxpos": 0
+        },
+        {
+            "red": 200,
+            "ypos": 0,
+            "green": 178,
+            "xpos": 500,
+            "blue": 10,
+            "dypos": 0,
+            "mass": 1000000,
+            "dxpos": -5
         }
     ],
     "gravitationalConstant": 0.1
