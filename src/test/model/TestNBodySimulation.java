@@ -69,7 +69,7 @@ public class TestNBodySimulation {
     }
 
     @Test
-    void testCollision() {
+    void testCollisions() {
         gravitationalConstant = 1;
         testSimulation = new NBodySimulation(1);
         firstPlanet = new Planet(200, 0, 0, 0, 0);
@@ -77,6 +77,12 @@ public class TestNBodySimulation {
         testSimulation.addPlanet(100, -10, 0);
         testSimulation.tick(1);
         assertEquals(firstPlanet, testSimulation.getPlanet(0));
+
+        testSimulation = new NBodySimulation(1);
+        testSimulation.addPlanet(100, 10, 0);
+        testSimulation.addPlanet(-100, -10, 0);
+        testSimulation.tick(1);
+        assertEquals(0, testSimulation.numPlanets());
     }
 
     @Test

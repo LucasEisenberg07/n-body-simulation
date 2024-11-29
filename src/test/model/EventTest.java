@@ -1,6 +1,5 @@
 package model;
 
-import model.Event;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Unit tests for the Event class
@@ -35,5 +35,12 @@ public class EventTest {
     @Test
     public void testToString() {
         assertEquals(date.toString() + "\n" + "Planets did something", event.toString());
+    }
+
+    @Test
+    public void testEqualsAndHashcode() {
+        assertFalse(event.equals(null));
+        assertFalse(event.equals(new Planet(0, 0, 0, 0, 0)));
+        assertEquals((13 * event.getDate().hashCode() + event.getDescription().hashCode()), event.hashCode());
     }
 }

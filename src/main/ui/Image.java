@@ -22,7 +22,5 @@ public abstract class Image extends JPanel {
 
     // MODIFIES: g
     // EFFECTS: draws image onto graphics
-    private void draw(Graphics g) {
-
-    }
+    protected abstract void draw(Graphics g);
 }

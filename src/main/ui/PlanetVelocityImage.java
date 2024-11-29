@@ -15,7 +15,7 @@ public class PlanetVelocityImage extends Image {
 
     // MODIFIES: g
     // EFFECTS: draws image onto graphics
-    private void draw(Graphics g) {
+    protected void draw(Graphics g) {
         g.setColor(super.color);
         g.fillOval(0, 0, getWidth(), getHeight());
     }

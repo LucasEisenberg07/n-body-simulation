@@ -30,6 +30,7 @@ public class TextViewer {
         df = new DecimalFormat("#.###");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        start();
     }
 
     

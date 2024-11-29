@@ -1,11 +1,11 @@
 {
     "planets": [
         {
-            "red": 239,
+            "red": 72,
             "ypos": 0,
-            "green": 89,
+            "green": 86,
             "xpos": 0,
-            "blue": 221,
+            "blue": 168,
             "dypos": 0,
             "mass": 100,
             "dxpos": 0

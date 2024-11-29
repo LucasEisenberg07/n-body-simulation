@@ -8,6 +8,5 @@ public class Main {
         NBodySimulation simulation = new NBodySimulation(initialG);
         ImageViewer iviewer = new ImageViewer(simulation);
         // TextViewer tviewer = new TextViewer(simulation);
-        // tviewer.start(); 
     }
 }
