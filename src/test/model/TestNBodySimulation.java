@@ -21,15 +21,15 @@ public class TestNBodySimulation {
         gravitationalConstant = 1;
         testSimulation = new NBodySimulation(1);
         firstPlanet = new Planet(10, 0, 0, 0, 0);
-        secondPlanet = new Planet(100, 10, 0, 0, 0);
-        thirdPlanet = new Planet(100, 0, 10, 0, 0);
+        secondPlanet = new Planet(100, 100, 0, 0, 0);
+        thirdPlanet = new Planet(100, 0, 100, 0, 0);
         planets = new ArrayList<Planet>();
         planets.add(firstPlanet);
         planets.add(secondPlanet);
         planets.add(thirdPlanet);
         testSimulation.addPlanet(10, 0, 0);
-        testSimulation.addPlanet(100, 10, 0);
-        testSimulation.addPlanet(100, 0, 10);
+        testSimulation.addPlanet(100, 100, 0);
+        testSimulation.addPlanet(100, 0, 100);
     }
 
     @Test 
@@ -66,6 +66,17 @@ public class TestNBodySimulation {
         assertEquals(firstPlanet, testSimulation.getPlanet(0));
         assertEquals(secondPlanet, testSimulation.getPlanet(1));
         assertEquals(thirdPlanet, testSimulation.getPlanet(2));
+    }
+
+    @Test
+    void testCollision() {
+        gravitationalConstant = 1;
+        testSimulation = new NBodySimulation(1);
+        firstPlanet = new Planet(200, 0, 0, 0, 0);
+        testSimulation.addPlanet(100, 10, 0);
+        testSimulation.addPlanet(100, -10, 0);
+        testSimulation.tick(1);
+        assertEquals(firstPlanet, testSimulation.getPlanet(0));
     }
 
     @Test
