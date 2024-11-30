@@ -78,7 +78,7 @@ public class ImageViewer extends JFrame implements ActionListener {
         setVisible(true);
         setResizable(true);
         initializeWindowListener();
-        timerDelay = 5;
+        timerDelay = 100;
         setupTimer();
     }
 
