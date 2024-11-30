@@ -78,7 +78,7 @@ public class ImageViewer extends JFrame implements ActionListener {
         setVisible(true);
         setResizable(true);
         initializeWindowListener();
-        timerDelay = 100;
+        timerDelay = 5;
         setupTimer();
     }
 
@@ -250,6 +250,18 @@ public class ImageViewer extends JFrame implements ActionListener {
         drawingPanel.removeAll();
         for (int i = 0; i < simulation.numPlanets(); i++) {
             Planet planet = simulation.getPlanet(i);
+            if (planet.getXPos() > width / 2) {
+                planet.setXPos(-width / 2);
+            }
+            if (planet.getXPos() < -width / 2) {
+                planet.setXPos(width / 2);
+            }
+            if (planet.getYPos() > height / 2) {
+                planet.setYPos(-height / 2);
+            }
+            if (planet.getYPos() < -height / 2) {
+                planet.setYPos(height / 2);
+            }
             drawPlanet(planet);
         }
         drawingPanel.revalidate();
