@@ -186,7 +186,6 @@ public class ImageViewer extends JFrame implements ActionListener {
     // EFFECTS: runs a timer tick
     public void runTimerTick() {
         if (timerRunning) {
-            System.out.println(timerRunning);
             simulation.tick(1);
             redraw();
         }
