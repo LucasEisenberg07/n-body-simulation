@@ -96,7 +96,7 @@ public class Planet {
         double xacceleration = 0;
         double yacceleration = 0;
         for (Planet planet : planets) {
-            if (planet != this) {
+            if (planet != this && (planet.xpos != xpos || planet.ypos != ypos)) {
                 double dx = planet.getXPos() - this.xpos;
                 double dy = planet.getYPos() - this.ypos;
                 double distance = Math.sqrt((dx * dx) + (dy * dy));
