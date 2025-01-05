@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -16,7 +17,7 @@ public class NBodySimulation {
     float gravitationalConstant;
 
     public NBodySimulation(float gravitationalConstant) {
-        planets = new ArrayList<Planet>();
+        planets = new ArrayList<Planet>() {final void checkForComodification() {}};
         this.gravitationalConstant = gravitationalConstant;
     }
 
@@ -25,7 +26,7 @@ public class NBodySimulation {
     // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
-            checkForCollisions();
+            // checkForCollisions();
             EventLog.getInstance().logEvent(new Event("Planets ticked"));
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
@@ -40,7 +41,7 @@ public class NBodySimulation {
     // EFFECTS: checks and executes any collisions
     private void checkForCollisions() {
         for (int i1 = 0; i1 < planets.size(); i1++) {
-            for (int i2 = 0; i2 < planets.size(); i2++) {
+            for (int i2 = 0; i2 < planets.size(); i2++) { 
                 Planet planet1 = planets.get(i1);
                 Planet planet2 = planets.get(i2);
                 if (planet1 != planet2) {
