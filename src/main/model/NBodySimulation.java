@@ -26,7 +26,7 @@ public class NBodySimulation {
     // given number of ticks
     public void tick(int num) {
         for (int i = 0; i < num; i++) {
-            // checkForCollisions();
+            checkForCollisions();
             EventLog.getInstance().logEvent(new Event("Planets ticked"));
             for (Planet planet : planets) {
                 planet.updateVelocity(planets, gravitationalConstant);
